@@ -1,7 +1,7 @@
 {
   "name": "taskor",
   "version": "1.0.0",
-  "description": "Task manager",
+  "description": "Personal task manager with timers",
   "scripts": {
     "dev": "PGUSER=postgres PGHOST=localhost PGPASSWORD=2829155 PGDATABASE=taskor PGPORT=5432 npm run watch",
     "watch": "npx webpack --watch --progress --colors --hide-modules & nodemon --watch source/app --exec npm run babel-node -- source/app/app.js",
