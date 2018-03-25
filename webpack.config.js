@@ -2,11 +2,11 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './app/src/js/app.js',
+    entry: ['./source/static/js/app.js', './source/static/css/style.sass'],
     output: {
-        path: path.resolve(__dirname, 'app/dist/js'),
-        filename: 'bundle.js',
-        publicPath: '/app/dist'
+        path: path.resolve(__dirname, 'public'),
+        filename: 'js/bundle.js',
+        publicPath: 'public'
     },
     devtool: 'source-map',
     module: {
@@ -23,19 +23,27 @@ module.exports = {
             },
             {
                 test: /\.sass$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader", // translates CSS into CommonJS
-                    options: {
-                        sourceMap: true
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].css',
+                            outputPath: 'css/'
+                        }
+                    },
+                    {
+                        loader: 'extract-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'sass-loader'
                     }
-                }, {
-                    loader: "sass-loader",
-                    options: {
-                        sourceMap: true
-                    }
-                }]
+                ]
             }
         ]
     },

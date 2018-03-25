@@ -37,7 +37,7 @@ export default class EditTask extends Component {
             <div className="task-edit">
                 <form onSubmit={this.handleSubmit} onClick={this.handleClick}>
                     <div className="d-flex w-100 justify-content-between task-edit-inner">
-                        <input type="text" onChange={(e) => this.handleInput('name', e)}
+                        <input type="text" onChange={(e) => this.handleInput('name', e)} tabIndex="1"
                                className="form-control mb-2 task-name-input" placeholder="Task name" required
                                value={this.state.task.name}/>
                         <div className="task-actions d-flex align-items-center">
@@ -58,7 +58,7 @@ export default class EditTask extends Component {
                         </div>
                     </div>
                     <div className="d-flex w-100 justify-content-between task-edit-inner">
-                        <textarea className="form-control task-description-input" rows="3"
+                        <textarea className="form-control task-description-input" rows="3" tabIndex="2"
                                   onChange={(e) => this.handleInput('description', e)}
                                   placeholder="Description" value={this.state.task.description}/>
                     </div>

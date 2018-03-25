@@ -7,6 +7,7 @@ export default class TasksList extends Component {
         super();
         this.state = {
             tasks: [],
+            loaded: false,
         };
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleEditTask = this.handleEditTask.bind(this);
@@ -19,10 +20,21 @@ export default class TasksList extends Component {
     componentDidMount() {
         fetch('/api/tasks')
             .then(response => {
-                return response.json();
+                if (response.ok)
+                    return response.json();
+                throw new Error('Can not load tasks, status: ' + response.status);
             })
-            .then(tasks => {
-                this.setState({tasks});
+            .then(data => {
+                this.setState({
+                    tasks: data,
+                    loaded: true,
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    error: error,
+                    loaded: true,
+                });
             });
     }
 
@@ -88,7 +100,7 @@ export default class TasksList extends Component {
 
     handleDoneTask(task) {
         task.done = 1;
-        this.updateTask(task)
+        this.updateTask(task);
         this.updateTaskInList(task);
     }
 
@@ -106,12 +118,26 @@ export default class TasksList extends Component {
 
     // Render
     renderTasks() {
-        let tasks = this.state.tasks.map(task =>
-            <Task task={task} key={task.id} onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}
-                  onDone={this.handleDoneTask} onNotDone={this.handleNotDoneTask} onArchive={this.handleArchiveTask}/>);
+        let content;
+        console.log(this.state);
+        if (this.state.loaded) {
+            if (this.state.error) {
+                content = <div className='alert alert-danger'>{this.state.error.message}</div>;
+            }
+            else {
+                content = this.state.tasks.map(task =>
+                    <Task task={task} key={task.id} onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}
+                          onDone={this.handleDoneTask} onNotDone={this.handleNotDoneTask}
+                          onArchive={this.handleArchiveTask}/>);
+            }
+        }
+        else {
+            content = <div className='alert alert-info'>Loading...</div>;
+        }
+
         return (
             <div className="list-group">
-                {tasks}
+                {content}
             </div>
         );
     }
