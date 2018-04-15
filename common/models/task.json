@@ -1,36 +1,39 @@
 {
-  "name": "task",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "name": {
-      "type": "string",
-      "required": true
+    "name": "task",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "description": {
-      "type": "string"
+    "properties": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string"
+        },
+        "evaluationTime": {
+            "type": "number"
+        },
+        "actualTime": {
+            "type": "number"
+        },
+        "done": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "archive": {
+            "type": "boolean",
+            "default": false
+        },
+        "createdAt": {
+            "type": "date"
+        }
     },
-    "evaluation": {
-      "type": "number"
-    },
-    "actualTime": {
-      "type": "number"
-    },
-    "done": {
-      "type": "boolean",
-      "required": true,
-      "default": false
-    },
-    "archive": {
-      "type": "boolean",
-      "default": false
-    }
-  },
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {}
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
 }

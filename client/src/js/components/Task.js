@@ -89,7 +89,7 @@ export default class Task extends Component {
                         <p className="task-description" dangerouslySetInnerHTML={{
                             __html: Task.renderDescription(task.description)
                         }}/>
-                        <span className="task-created-datetime">{Task.renderDateTime(task.created_at)}</span>
+                        <span className="task-created-datetime">{Task.renderDateTime(task.createdAt)}</span>
                     </div>
                 </div>
 
