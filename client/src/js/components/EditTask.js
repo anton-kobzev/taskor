@@ -36,31 +36,27 @@ export default class EditTask extends Component {
         return (
             <div className="task-edit">
                 <form onSubmit={this.handleSubmit} onClick={this.handleClick}>
-                    <div className="d-flex w-100 justify-content-between task-edit-inner">
-                        <input type="text" onChange={(e) => this.handleInput('name', e)} tabIndex="1"
-                               className="form-control mb-2 task-name-input" placeholder="Task name" required
-                               value={this.state.task.name}/>
+                    <div className="d-flex justify-content-between">
+                        <div className="task-edit-inner">
+                            <input type="text" onChange={(e) => this.handleInput('name', e)} tabIndex="1"
+                                   className="form-control mb-2 task-name-input" placeholder="Task name" required
+                                   value={this.state.task.name}/>
+                            <textarea className="form-control task-description-input" rows="2" tabIndex="2"
+                                      onChange={(e) => this.handleInput('description', e)}
+                                      placeholder="Description" value={this.state.task.description}/>
+                        </div>
                         <div className="task-actions d-flex align-items-center">
-
                             <a href="javascript:" title="Delete" className="action action-icon" onClick={() => {
                                 this.props.onDelete(this.state.task)
                             }}>
                                 <i className="fas fa-trash"/>
                             </a>
-
                             <a href="javascript:" title="Start timer" className="action action-icon">
                                 <i className="far fa-clock"/>
                             </a>
-
                             <input type="submit" className="btn btn-primary action action-button"
-                                   value="Done"/>
-
+                                   value="Save"/>
                         </div>
-                    </div>
-                    <div className="d-flex w-100 justify-content-between task-edit-inner">
-                        <textarea className="form-control task-description-input" rows="3" tabIndex="2"
-                                  onChange={(e) => this.handleInput('description', e)}
-                                  placeholder="Description" value={this.state.task.description}/>
                     </div>
                 </form>
             </div>

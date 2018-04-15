@@ -5,6 +5,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap'
 
+// Header
+.navbar
+    background: $primary
+    padding-left: 2rem
+
 // Task list
 .task
     padding: .5rem .7rem .5rem 2rem
@@ -41,10 +46,12 @@
     .task-description
         font-size: 13px
         margin-bottom: 0
+        opacity: .6
 
     .task-created-datetime
         font-size: 10px
         color: $gray-700
+        opacity: .6
 
     .task-actions, .task-edit
         display: none
@@ -59,6 +66,9 @@
         .action-icon
             width: 20px
             height: 20px
+
+        .action-button
+            padding: 20px
 
     .task-actions-prepend
         position: absolute
@@ -80,23 +90,41 @@
         .task-edit
             display: block
 
+            .task-edit-inner
+                width: 70%
+
             input[type=text], textarea
                 padding: .2rem
+                background: none
+                border: none
+                border-bottom: 2px solid #d8d8d8
+                &:focus
+                    border-bottom: 2px solid #6f6f6f
 
-            .task-name-input
-                width: 30%
+        .task-name-input
+            width: 40%
+            font-size: 16px
 
-            .task-description-input
-                width: 60%
+        .task-description-input
+            width: 60%
 
-            .task-actions
-                margin-bottom: 10px
+        .task-actions
+            margin-bottom: 10px
 
         .task-actions
             display: block
 
         .task-actions-prepend
             margin-top: .5rem
+
+.add-task-button
+    padding: 11px 40px
+    background: #f3f3f3
+    float: right
+    border: 5px solid #fafafa
+    &:hover
+        border-color: #f3f3f3
+        background: #f3f3f3
 
 // Modals
 .ReactModal__Overlay

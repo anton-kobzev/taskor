@@ -34,7 +34,7 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-dark bg-primary">
+            <nav className="navbar navbar-dark">
                 <a className="navbar-brand" href="/">Task list</a>
                 <span className="navbar-text">{this.state.mailInfo}</span>
             </nav>

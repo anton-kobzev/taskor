@@ -151,7 +151,7 @@ export default class TasksList extends Component {
                             {this.renderTasks()}
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row float-right">
                         <div className="col">
                             <AddTask onAdd={this.handleAddTask}/>
                         </div>
