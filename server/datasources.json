@@ -1,0 +1,7 @@
+{
+    "db": {
+        "database": "taskor",
+        "name": "db",
+        "connector": "mongodb"
+    }
+}
