@@ -2,11 +2,10 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: ['./source/static/js/app.js', './source/static/css/style.sass'],
+    entry: ['./client/src/js/app.js', './client/src/css/style.sass'],
     output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: 'js/bundle.js',
-        publicPath: 'public'
+        path: path.resolve(__dirname, 'client/public'),
+        filename: 'js/bundle.js'
     },
     devtool: 'source-map',
     module: {

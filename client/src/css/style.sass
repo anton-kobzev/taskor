@@ -1,0 +1,124 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600")
+// Variables
+@import "vars"
+// Bootstrap
+@import '~bootstrap/scss/bootstrap'
+
+// Task list
+.task
+    padding: .5rem .7rem .5rem 2rem
+    transition: $transition-base
+
+    &.task-done
+        opacity: .6
+
+        .task-name
+            &::before
+                width: 100%
+
+        .task-actions-prepend
+            display: block
+
+            .action
+                color: inherit
+
+    .task-name
+        font-size: 16px
+        position: relative
+
+        &::before
+            content: ""
+            display: block
+            position: absolute
+            top: 50%
+            left: 0
+            width: 0
+            height: 1px
+            background-color: rgba(0, 0, 0, 0.6)
+            transition: width .4s ease-in
+
+    .task-description
+        font-size: 13px
+        margin-bottom: 0
+
+    .task-created-datetime
+        font-size: 10px
+        color: $gray-700
+
+    .task-actions, .task-edit
+        display: none
+
+    .task-actions
+        margin-right: -.5rem
+
+        .action
+            margin-right: .5rem
+            transition: $transition-base
+
+        .action-icon
+            width: 20px
+            height: 20px
+
+    .task-actions-prepend
+        position: absolute
+        left: .7rem
+
+    &:hover
+        cursor: pointer
+        background-color: #f1f1f1
+
+        .task-actions
+            display: block
+
+    &.active-task
+        background-color: #f1f1f1
+
+        .task-view
+            display: none
+
+        .task-edit
+            display: block
+
+            input[type=text], textarea
+                padding: .2rem
+
+            .task-name-input
+                width: 30%
+
+            .task-description-input
+                width: 60%
+
+            .task-actions
+                margin-bottom: 10px
+
+        .task-actions
+            display: block
+
+        .task-actions-prepend
+            margin-top: .5rem
+
+// Modals
+.ReactModal__Overlay
+    z-index: 100000
+
+.ReactModal__Content
+    width: 230px
+    height: 170px
+    margin: auto
+
+    .modal-title
+        margin-top: 25px
+
+    .modal-close
+        color: black
+        position: absolute
+        top: 20px
+        right: 20px
+        width: 15px
+        height: 15px
+
+    .modal-buttons
+        position: absolute
+        bottom: 20px
+        right: 20px
