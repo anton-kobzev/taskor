@@ -39,9 +39,9 @@ export default class TasksList extends Component {
     }
 
     // Update and delete helpers
-    updateTask(task) {
+    static updateTask(task) {
         return fetch('/api/tasks/' + task.id, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
@@ -88,7 +88,7 @@ export default class TasksList extends Component {
     }
 
     handleEditTask(task) {
-        this.updateTask(task);
+        TasksList.updateTask(task);
         this.updateTaskInList(task);
     }
 
@@ -100,19 +100,19 @@ export default class TasksList extends Component {
 
     handleDoneTask(task) {
         task.done = 1;
-        this.updateTask(task);
+        TasksList.updateTask(task);
         this.updateTaskInList(task);
     }
 
     handleNotDoneTask(task) {
         task.done = 0;
-        this.updateTask(task);
+        TasksList.updateTask(task);
         this.updateTaskInList(task);
     }
 
     handleArchiveTask(task) {
         task.archive = 1;
-        this.updateTask(task);
+        TasksList.updateTask(task);
         this.removeTaskFromList(task);
     }
 

@@ -1,7 +1,5 @@
 const {app, chai, expect} = require('../common');
 
-const Task = app.models.Task;
-
 describe('Task CRUD operations', function() {
 
     it('GET all the tasks', (done) => {
@@ -44,6 +42,26 @@ describe('Task CRUD operations', function() {
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.have.property('error');
                 done();
+            });
+    });
+
+    it('mark task done', (done) => {
+        const task = {
+            name: "Test task",
+            description: "This is test task",
+        };
+        chai.request(app)
+            .post('/api/tasks')
+            .send(task)
+            .end((err, res) => {
+                chai.request(app)
+                    .patch('/api/tasks/' + res.body.id)
+                    .send({done: true})
+                    .end((err, res) => {
+                        expect(res).to.have.status(200);
+                        expect(res.body.done).to.be.eql(true);
+                        done();
+                    });
             });
     });
 
