@@ -35,7 +35,12 @@ export default class NavBar extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark">
-                <a className="navbar-brand" href="/">Task list</a>
+                <a className="navbar-brand" href="/">Задачки</a>
+                <ul className="navbar-nav mr-auto">
+                    <li className={"nav-item" + (document.location.search == '?analyze' ? " active" : "")}>
+                        <a className="nav-link" href="/?analyze">Анализ</a>
+                    </li>
+                </ul>
                 <span className="navbar-text">{this.state.mailInfo}</span>
             </nav>
         );

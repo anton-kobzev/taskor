@@ -39,23 +39,28 @@ export default class EditTask extends Component {
                     <div className="d-flex justify-content-between">
                         <div className="task-edit-inner">
                             <input type="text" onChange={(e) => this.handleInput('name', e)} tabIndex="1"
-                                   className="form-control mb-2 task-name-input" placeholder="Task name" required
+                                   className="form-control mb-2 task-name-input" placeholder="Название" required
                                    value={this.state.task.name}/>
                             <textarea className="form-control task-description-input" rows="2" tabIndex="2"
                                       onChange={(e) => this.handleInput('description', e)}
-                                      placeholder="Description" value={this.state.task.description}/>
+                                      placeholder="Описание" value={this.state.task.description}/>
                         </div>
                         <div className="task-actions d-flex align-items-center">
-                            <a href="javascript:" title="Delete" className="action action-icon" onClick={() => {
+                            <i className="far fa-clock task-estimate-time-icon"/>
+                            <input type="text" className="task-small-input task-estimate-time-input" placeholder="оценка"
+                                   onChange={(e) => this.handleInput('estimateTime', e)} value={this.state.task.estimateTime}/>
+
+                            <i className="far fa-check-circle task-actual-time-icon"/>
+                            <input type="text" className="task-small-input task-actual-time-input" placeholder="ушло"
+                                   onChange={(e) => this.handleInput('actualTime', e)} value={this.state.task.actualTime}/>
+
+                            <a href="javascript:" title="Удалить" className="action action-icon" onClick={() => {
                                 this.props.onDelete(this.state.task)
                             }}>
                                 <i className="fas fa-trash"/>
                             </a>
-                            <a href="javascript:" title="Start timer" className="action action-icon">
-                                <i className="far fa-clock"/>
-                            </a>
                             <input type="submit" className="btn btn-primary action action-button"
-                                   value="Save"/>
+                                   value="Сохранить"/>
                         </div>
                     </div>
                 </form>

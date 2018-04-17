@@ -61,11 +61,11 @@ export default class Task extends Component {
 
                 <div className="task-actions task-actions-prepend">
                     {task.done ? (
-                        <a href="javascript:" title="Not done" className="action action-icon"
+                        <a href="javascript:" title="Не готово" className="action action-icon"
                            key={"task-done-" + task.id}
                            onClick={this.handleNotDoneTask}><i className="far fa-check-circle"/></a>
                     ) : (
-                        <a href="javascript:" title="Done!" className="action action-icon"
+                        <a href="javascript:" title="Готово!" className="action action-icon"
                            onClick={this.handleDoneTask}><i className="far fa-circle"/></a>
                     )}
                 </div>
@@ -73,34 +73,42 @@ export default class Task extends Component {
                 <div className="task-view" onClick={this.handleEditTaskClick}>
                     <div className="d-flex w-100 justify-content-between task-inner">
                         <span className="task-name">{task.name}</span>
-                        <div className="task-actions">
-                            {task.done === 1 &&
-                                <a href="javascript:" title="Archive" className="action action-icon"
+                        <div className="d-flex">
+                            <div className="task-actions">
+                                {task.done === 1 &&
+                                <a href="javascript:" title="Архивировать" className="action action-icon"
                                    key={"task-" + task.id + "-archive"}
                                    onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
-                            }
-                            <a href="javascript:" title="Delete" className="action action-icon"
-                               onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
-                            <a href="javascript:" title="Start timer" className="action action-icon"><i
-                                className="far fa-clock"/></a>
+                                }
+                                <a href="javascript:" title="Удалить" className="action action-icon"
+                                   onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
+                            </div>
+                            {task.estimateTime &&
+                            <div className="task-time task-estimate-time">
+                                <i className="far fa-clock task-data-icon task-estimate-time-icon"/> оценка {task.estimateTime}
+                            </div>}
                         </div>
                     </div>
                     <div className="d-flex w-100 justify-content-between task-inner">
                         <p className="task-description" dangerouslySetInnerHTML={{
                             __html: Task.renderDescription(task.description)
                         }}/>
-                        <span className="task-created-datetime">{Task.renderDateTime(task.createdAt)}</span>
+                        {task.actualTime &&
+                        <div className="task-time task-actual-time">
+                            <i className="far fa-check-circle task-data-icon task-actual-time-icon"/> ушло {task.actualTime}
+                        </div>}
                     </div>
                 </div>
 
                 <EditTask task={task} onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}/>
 
                 <ReactModal isOpen={this.state.showDeleteConfirmModal} ariaHideApp={false}>
-                    <div className="modal-title">Are your sure to delete "{task.name}"?</div>
+                    <div className="modal-title">Вы уверены, что хотите удалить "{task.name}"?</div>
                     <div className="modal-buttons">
-                        <button className="btn btn-danger" onClick={() => (this.props.onDelete(task))} autoFocus>Yes</button>
+                        <button className="btn btn-danger" onClick={() => (this.props.onDelete(task))} autoFocus>Да
+                        </button>
                         <button className="btn btn-secondary ml-1"
-                                onClick={() => (this.setState({showDeleteConfirmModal: false}))}>No
+                                onClick={() => (this.setState({showDeleteConfirmModal: false}))}>Нет
                         </button>
                     </div>
                     <a href="#" className="modal-close"
@@ -122,10 +130,10 @@ export default class Task extends Component {
             return '1 minute ago';
         else if (diffMinutes < 60)
             return diffMinutes + ' minutes ago';
-        else if (diffMinutes > 59 && diffMinutes < 60 * 24)
-            return Math.round(diffMinutes / 60) + ' hour ago';
-        else if (diffMinutes < 60 * 24)
-            return Math.round(diffMinutes / 60) + ' hours ago';
+        else if (diffMinutes > 59 && diffMinutes < 60 * 24) {
+            const hours = Math.round(diffMinutes / 60);
+            return hours + (hours == 1 ? ' hour' : ' hours') + ' ago';
+        }
         else
             return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' +
                 (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + '.' +

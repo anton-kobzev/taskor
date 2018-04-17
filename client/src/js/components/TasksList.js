@@ -119,7 +119,7 @@ export default class TasksList extends Component {
     // Render
     renderTasks() {
         let content;
-        console.log(this.state);
+
         if (this.state.loaded) {
             if (this.state.error) {
                 content = <div className='alert alert-danger'>{this.state.error.message}</div>;
@@ -132,7 +132,7 @@ export default class TasksList extends Component {
             }
         }
         else {
-            content = <div className='alert alert-info'>Loading...</div>;
+            content = <div className='alert alert-info loading'>Загрузка списка задач...</div>;
         }
 
         return (

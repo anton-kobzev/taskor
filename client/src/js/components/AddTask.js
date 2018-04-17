@@ -53,15 +53,15 @@ export default class AddTask extends Component {
                     });
                 }}>
                     <i className="fas fa-plus mr-1" />
-                    Add new task
+                    Добавить новую задачу
                 </button>
                 <form onSubmit={this.handleSubmit} className="form-inline justify-content-start add-task-form mt-2"
                       style={{display: 'none'}}>
                     <div className="input-group mr-2">
                         <input type="text" onChange={(e) => this.handleInput('name', e)} className="form-control add-task-name-input"
-                               placeholder="Task name" value={this.state.newTask.name} required />
+                               placeholder="Название" value={this.state.newTask.name} required />
                     </div>
-                    <input type="submit" className="btn btn-primary add-task-submit-button" value="Add"/>
+                    <input type="submit" className="btn btn-primary add-task-submit-button" value="Добавить"/>
                 </form>
             </div>
         );

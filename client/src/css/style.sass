@@ -5,10 +5,24 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap'
 
+body
+    padding-bottom: 15em
+
+input
+    outline: none !important
+
+.loading
+    text-align: center
+    font-size: 1.5rem
+    font-weight: lighter
+    padding: 2rem
+
 // Header
 .navbar
     background: $primary
     padding-left: 2rem
+.nav-link
+    margin-bottom: -2px
 
 // Task list
 .task
@@ -48,10 +62,19 @@
         margin-bottom: 0
         opacity: .6
 
-    .task-created-datetime
-        font-size: 10px
-        color: $gray-700
-        opacity: .6
+    .task-time
+        margin-left: .6rem
+        font-size: 14px
+        color: #444
+
+    .task-data-icon
+        margin-right: .1rem
+
+    .task-estimate-time-icon
+        color: $primary
+
+    .task-actual-time-icon
+        color: $success
 
     .task-actions, .task-edit
         display: none
@@ -102,11 +125,17 @@
                     border-bottom: 2px solid #6f6f6f
 
         .task-name-input
-            width: 40%
+            width: 60%
             font-size: 16px
 
         .task-description-input
             width: 60%
+
+        .task-small-input
+            width: 3.6rem
+            margin-right: .5rem
+            margin-left: 0.1rem
+            text-align: center
 
         .task-actions
             margin-bottom: 10px
@@ -150,3 +179,31 @@
         position: absolute
         bottom: 20px
         right: 20px
+
+
+// Analyze
+.analyze-container
+    background-color: #fff
+    .level
+        text-align: center
+        padding: 3rem
+        font-size: 2rem
+        opacity: .8
+        .level-icon
+            margin-right: 1rem
+        .level-number
+            font-weight: bold
+            color: $success
+    .analyze-item
+        margin: 2rem
+        padding: 1.6rem .9rem
+        border: 1px solid #cecece
+        .icon
+            color: $success
+            text-align: center
+        .title
+            display: block
+            font-size: 1.2rem
+        .value
+            font-size: 1.5rem
+            font-weight: bold

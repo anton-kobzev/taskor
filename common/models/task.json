@@ -30,10 +30,25 @@
         },
         "createdAt": {
             "type": "date"
+        },
+        "estimateTime": {
+            "type": "number"
         }
     },
     "validations": [],
     "relations": {},
     "acls": [],
-    "methods": {}
+    "methods": {
+        "analyze": {
+            "accepts": [],
+            "returns": [{"arg": "result", "type": "Object"}],
+            "description": "Analyze your productivity",
+            "http": [
+                {
+                    "path": "/analyze",
+                    "verb": "get"
+                }
+            ]
+        }
+    }
 }
