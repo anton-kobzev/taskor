@@ -18,7 +18,7 @@ export default class TasksList extends Component {
     }
 
     componentDidMount() {
-        fetch('/api/tasks/?filter={"where":{"archive":"false"}}')
+        fetch('/api/tasks/?filter={"where":{"archive":"false"}, "order":"done"}')
             .then(response => {
                 if (response.ok)
                     return response.json();

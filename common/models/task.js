@@ -8,9 +8,7 @@ module.exports = function(Task) {
 
     /**
      * Analyze your productivity
-     * @param {Function(Error)} callback
      */
-
     Task.analyze = function(callback) {
         Task.find({where: {archive: false}}, (err, tasks) => {
             let sumEstimateTime = 0, sumActualTime = 0, done = 0;
@@ -51,7 +49,10 @@ module.exports = function(Task) {
                 ],
             };
 
-            result.level = Math.round(sumEstimateTime / sumActualTime * 100) / 100;
+            if (sumActualTime == 0)
+                result.level = 0;
+            else
+                result.level = Math.round(sumEstimateTime / sumActualTime * 100) / 100;
 
             callback(null, result);
         });

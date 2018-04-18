@@ -6412,7 +6412,8 @@ input {
     text-align: center;
     padding: 3rem;
     font-size: 2rem;
-    opacity: .8; }
+    opacity: .8;
+    border-bottom: 1px solid #eaeaea; }
     .analyze-container .level .level-icon {
       margin-right: 1rem; }
     .analyze-container .level .level-number {
