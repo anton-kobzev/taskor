@@ -83,7 +83,7 @@ export default class Task extends Component {
                                 <a href="javascript:" title="Удалить" className="action action-icon"
                                    onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
                             </div>
-                            {task.estimateTime &&
+                            {task.estimateTime > 0 &&
                             <div className="task-time task-estimate-time">
                                 <i className="far fa-clock task-data-icon task-estimate-time-icon"/> оценка {task.estimateTime}
                             </div>}
@@ -93,7 +93,7 @@ export default class Task extends Component {
                         <p className="task-description" dangerouslySetInnerHTML={{
                             __html: Task.renderDescription(task.description)
                         }}/>
-                        {task.actualTime &&
+                        {task.actualTime > 0 &&
                         <div className="task-time task-actual-time">
                             <i className="far fa-check-circle task-data-icon task-actual-time-icon"/> ушло {task.actualTime}
                         </div>}

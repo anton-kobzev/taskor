@@ -6419,6 +6419,15 @@ input {
     .analyze-container .level .level-number {
       font-weight: bold;
       color: #3ca200; }
+    .analyze-container .level .level-tip {
+      display: block;
+      font-size: 12px;
+      opacity: .3;
+      margin-top: -.4rem;
+      margin-left: 6rem; }
+      .analyze-container .level .level-tip:hover {
+        opacity: .6;
+        transition: opacity .4s; }
   .analyze-container .analyze-item {
     margin: 2rem;
     padding: 1.6rem .9rem;

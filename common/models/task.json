@@ -13,12 +13,6 @@
         "description": {
             "type": "string"
         },
-        "evaluationTime": {
-            "type": "number"
-        },
-        "actualTime": {
-            "type": "number"
-        },
         "done": {
             "type": "boolean",
             "required": true,
@@ -32,7 +26,12 @@
             "type": "date"
         },
         "estimateTime": {
-            "type": "number"
+            "type": "number",
+            "default": 0
+        },
+        "actualTime": {
+            "type": "number",
+            "default": 0
         }
     },
     "validations": [],

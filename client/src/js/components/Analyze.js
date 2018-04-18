@@ -56,6 +56,7 @@ export default class Analyze extends Component {
                             <div className="level">
                                 <i className="fas fa-chess level-icon"/>
                                 Уровень: <span className="level-number">{this.state.result.level}</span>
+                                <span className="level-tip">закрыто / затрачено</span>
                             </div>
                         </div>
                     </div>
