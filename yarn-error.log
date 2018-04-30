@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/9.9.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js start
+  /usr/local/Cellar/node/9.9.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js watch
 
 PATH: 
   /usr/local/opt/node@6/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -43,7 +43,7 @@ npm manifest:
       "husky": {
           "hooks": {
               "pre-commit": "npm test",
-              "pre-push": "npm test"
+              "pre-push": "npm run deploy"
           }
       },
       "dependencies": {
@@ -8765,7 +8765,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c MONGODB_URL="mongodb://taskor:drkDGVVt4sGtxPZy@cluster0-shard-00-00-kxmsk.mongodb.net:27017,cluster0-shard-00-01-kxmsk.mongodb.net:27017,cluster0-shard-00-02-kxmsk.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin" node server/server.js
+  Arguments: -c npx webpack --watch --progress --colors --hide-modules & nodemon --watch server --exec npm run babel-node -- server/**/* & npm start
   Directory: /Users/anton/Documents/Learning/taskor
   Output:
   

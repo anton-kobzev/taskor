@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Helpers from './Helpers';
 import Task from './Task';
 import AddTask from "./AddTask";
 
@@ -8,6 +9,7 @@ export default class TasksList extends Component {
         this.state = {
             tasks: [],
             loaded: false,
+            progress: null,
         };
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleEditTask = this.handleEditTask.bind(this);
@@ -15,6 +17,7 @@ export default class TasksList extends Component {
         this.handleDoneTask = this.handleDoneTask.bind(this);
         this.handleNotDoneTask = this.handleNotDoneTask.bind(this);
         this.handleArchiveTask = this.handleArchiveTask.bind(this);
+        this.handleTimerStart = this.handleTimerStart.bind(this);
     }
 
     componentDidMount() {
@@ -61,13 +64,12 @@ export default class TasksList extends Component {
     }
 
     removeTaskFromList(task) {
-        let array = this.state.tasks.filter(function (item) {
+        let array = this.state.tasks.filter(function(item) {
             return item !== task
         });
         this.setState({tasks: array});
     }
 
-    // Handlers
     handleAddTask(task) {
         fetch('/api/tasks', {
             method: 'POST',
@@ -94,8 +96,10 @@ export default class TasksList extends Component {
 
     handleDeleteTask(task) {
         fetch('/api/tasks/' + task.id,
-            {method: 'delete'});
-        this.removeTaskFromList(task);
+            {method: 'delete'})
+            .then(() => {
+                this.removeTaskFromList(task);
+            });
     }
 
     handleDoneTask(task) {
@@ -116,6 +120,27 @@ export default class TasksList extends Component {
         this.removeTaskFromList(task);
     }
 
+    handleTimerStart(task) {
+        const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task};
+        progress.timerId = setInterval(() => {
+            this.setState((prevState) => {
+                let progress = prevState.progress;
+                progress.timerSeconds++;
+                return {progress};
+            }, () => {
+                if (this.state.progress.timerSeconds % 300 == 0) {
+                    // Sync with server
+                    let progress = this.state.progress;
+                    progress.task.actualTime = Math.round(progress.timerSeconds / 3600 * 10) / 10;
+                    TasksList.updateTask(progress.task);
+                    this.updateTaskInList(progress.task);
+                    this.setState({progress});
+                }
+            });
+        }, 1000);
+        this.setState({progress});
+    }
+
     // Render
     renderTasks() {
         let content;
@@ -128,7 +153,7 @@ export default class TasksList extends Component {
                 content = this.state.tasks.map(task =>
                     <Task task={task} key={task.id} onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}
                           onDone={this.handleDoneTask} onNotDone={this.handleNotDoneTask}
-                          onArchive={this.handleArchiveTask}/>);
+                          onArchive={this.handleArchiveTask} onTimerStart={this.handleTimerStart}/>);
             }
         }
         else {
@@ -144,17 +169,28 @@ export default class TasksList extends Component {
 
     render() {
         return (
-            <div className="row task-list">
-                <div className="col">
-                    <div className="row">
-                        <div className="col">
-                            {this.renderTasks()}
+            <div>
+                {this.state.progress != null &&
+                <div className="row timer">
+                    <div className="col">
+                        <div className="timer-container">
+                            <div className="timer">
+                                <span className="text">В работе: </span>
+                                <span className="task-name">{this.state.progress.task.name} </span>
+                                <i className="far fa-clock icon"/>
+                                <span className="time">{Helpers.secondsToHms(this.state.progress.timerSeconds)}</span>
+                            </div>
                         </div>
                     </div>
-                    <div className="row float-right">
-                        <div className="col">
-                            <AddTask onAdd={this.handleAddTask}/>
-                        </div>
+                </div>}
+                <div className="row task-list">
+                    <div className="col">
+                        {this.renderTasks()}
+                    </div>
+                </div>
+                <div className="row float-right">
+                    <div className="col">
+                        <AddTask onAdd={this.handleAddTask}/>
                     </div>
                 </div>
             </div>

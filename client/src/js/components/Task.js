@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
+import Helpers from './Helpers';
 import EditTask from './EditTask';
 import ReactModal from 'react-modal';
 
@@ -21,6 +22,7 @@ export default class Task extends Component {
         this.handleDoneTask = this.handleDoneTask.bind(this);
         this.handleNotDoneTask = this.handleNotDoneTask.bind(this);
         this.handleArchiveTask = this.handleArchiveTask.bind(this);
+        this.handleTimerStart = this.handleTimerStart.bind(this);
     }
 
     handleEditTask(task) {
@@ -53,6 +55,10 @@ export default class Task extends Component {
         this.props.onArchive(this.props.task);
     }
 
+    handleTimerStart() {
+        this.props.onTimerStart(this.props.task);
+    }
+
     render() {
         let task = this.props.task;
         return (
@@ -80,6 +86,8 @@ export default class Task extends Component {
                                    key={"task-" + task.id + "-archive"}
                                    onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
                                 }
+                                <a href="javascript:" title="Начать работу" className="action action-icon"
+                                   onClick={this.handleTimerStart}><i className="fas fa-space-shuttle"/></a>
                                 <a href="javascript:" title="Удалить" className="action action-icon"
                                    onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
                             </div>
@@ -118,28 +126,6 @@ export default class Task extends Component {
                 </ReactModal>
             </div>
         )
-    }
-
-    static renderDateTime(datetime) {
-        let date = new Date(Date.parse(datetime)),
-            now = new Date(),
-            diffMinutes = Math.round((now - date) / 1000 / 60);
-        if (diffMinutes < 1)
-            return 'just now';
-        else if (diffMinutes === 1)
-            return '1 minute ago';
-        else if (diffMinutes < 60)
-            return diffMinutes + ' minutes ago';
-        else if (diffMinutes > 59 && diffMinutes < 60 * 24) {
-            const hours = Math.round(diffMinutes / 60);
-            return hours + (hours == 1 ? ' hour' : ' hours') + ' ago';
-        }
-        else
-            return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' +
-                (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + '.' +
-                date.getFullYear() + ' ' +
-                (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' +
-                (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
     }
 
     static renderDescription(desc) {
