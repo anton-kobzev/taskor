@@ -81,7 +81,7 @@ export default class Task extends Component {
                         <span className="task-name">{task.name}</span>
                         <div className="d-flex">
                             <div className="task-actions">
-                                {task.done === 1 &&
+                                {task.done &&
                                 <a href="javascript:" title="Архивировать" className="action action-icon"
                                    key={"task-" + task.id + "-archive"}
                                    onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>

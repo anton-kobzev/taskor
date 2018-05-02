@@ -6406,6 +6406,32 @@ input {
     bottom: 20px;
     right: 20px; }
 
+.timer-container .timer {
+  padding: 1em;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ededed;
+  border-bottom: none;
+  font-size: 1.1em; }
+
+.timer-container .icon {
+  margin-right: .4em;
+  position: relative;
+  bottom: 1px; }
+
+.timer-container .text {
+  opacity: .6; }
+
+.timer-container .task-name {
+  margin-right: .7em; }
+
+.timer-container .time {
+  font-size: 1.3em;
+  font-weight: lighter;
+  display: inline-block;
+  width: 100px;
+  text-align: left; }
+
 .analyze-container {
   background-color: #fff; }
   .analyze-container .level {

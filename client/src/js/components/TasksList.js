@@ -21,7 +21,17 @@ export default class TasksList extends Component {
     }
 
     componentDidMount() {
-        fetch('/api/tasks/?filter={"where":{"archive":"false"}, "order":"done"}')
+        let date = new Date();
+        date.setDate(1);
+        date.setHours(0, 0, 0);
+        const filter = {
+            where: {
+                // createdAt: {"gte": date.toISOString()},
+                archive: false
+            },
+            order: "done",
+        };
+        fetch('/api/tasks/?filter=' + JSON.stringify(filter))
             .then(response => {
                 if (response.ok)
                     return response.json();
