@@ -189,20 +189,32 @@ input
         border: $list-group-border-width solid $list-group-border-color
         border-bottom: none
         font-size: 1.1em
-    .icon
-        margin-right: .4em
-        position: relative
-        bottom: 1px
-    .text
-        opacity: .6
-    .task-name
-        margin-right: .7em
-    .time
-        font-size: 1.3em
-        font-weight: lighter
-        display: inline-block
-        width: 100px
-        text-align: left
+        .icon
+            margin-right: .4em
+            position: relative
+            bottom: 1px
+        .text
+            opacity: .6
+        .task-name
+            margin-right: .7em
+        .time
+            font-size: 1.3em
+            font-weight: lighter
+            display: inline-block
+            width: 75px
+            text-align: left
+        .timer-pause-button
+            cursor: pointer
+            padding: 10px
+            opacity: .9
+            &:hover
+                opacity: .7
+                transition: opacity .5s, color .5s
+        &.paused
+            .timer-pause-button
+                opacity: 1
+            .icon, .time
+                color: $primary
 
 // Analyze
 .analyze-container

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
-import Helpers from './Helpers';
 import EditTask from './EditTask';
 import ReactModal from 'react-modal';
 

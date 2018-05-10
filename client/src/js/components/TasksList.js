@@ -52,7 +52,7 @@ export default class TasksList extends Component {
     }
 
     // Update and delete helpers
-    static updateTask(task) {
+    updateTask(task) {
         return fetch('/api/tasks/' + task.id, {
             method: 'PATCH',
             headers: {
@@ -63,6 +63,9 @@ export default class TasksList extends Component {
         })
             .then((response) => {
                 return response.json();
+            })
+            .then((task) => {
+                this.updateTaskInList(task);
             });
     }
 
@@ -100,8 +103,7 @@ export default class TasksList extends Component {
     }
 
     handleEditTask(task) {
-        TasksList.updateTask(task);
-        this.updateTaskInList(task);
+        this.updateTask(task);
     }
 
     handleDeleteTask(task) {
@@ -114,39 +116,38 @@ export default class TasksList extends Component {
 
     handleDoneTask(task) {
         task.done = 1;
-        TasksList.updateTask(task);
-        this.updateTaskInList(task);
+        this.updateTask(task);
     }
 
     handleNotDoneTask(task) {
         task.done = 0;
-        TasksList.updateTask(task);
-        this.updateTaskInList(task);
+        this.updateTask(task);
     }
 
     handleArchiveTask(task) {
         task.archive = 1;
-        TasksList.updateTask(task);
+        this.updateTask(task);
         this.removeTaskFromList(task);
     }
 
     handleTimerStart(task) {
-        const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task};
+        const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task, paused: false};
         progress.timerId = setInterval(() => {
-            this.setState((prevState) => {
-                let progress = prevState.progress;
-                progress.timerSeconds++;
-                return {progress};
-            }, () => {
-                if (this.state.progress.timerSeconds % 300 == 0) {
-                    // Sync with server
-                    let progress = this.state.progress;
-                    progress.task.actualTime = Math.round(progress.timerSeconds / 3600 * 10) / 10;
-                    TasksList.updateTask(progress.task);
-                    this.updateTaskInList(progress.task);
-                    this.setState({progress});
-                }
-            });
+            if (!this.state.progress.paused) {
+                this.setState((prevState) => {
+                    let progress = prevState.progress;
+                    progress.timerSeconds++;
+                    return {progress};
+                }, () => {
+                    if (this.state.progress.timerSeconds % 300 == 0) {
+                        // Sync with server
+                        this.updateTask({
+                            id: this.state.progress.task.id,
+                            actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
+                        });
+                    }
+                });
+            }
         }, 1000);
         this.setState({progress});
     }
@@ -184,11 +185,20 @@ export default class TasksList extends Component {
                 <div className="row timer">
                     <div className="col">
                         <div className="timer-container">
-                            <div className="timer">
+                            <div className={"timer" + (this.state.progress.paused ? " paused" : '')}>
                                 <span className="text">В работе: </span>
                                 <span className="task-name">{this.state.progress.task.name} </span>
                                 <i className="far fa-clock icon"/>
                                 <span className="time">{Helpers.secondsToHms(this.state.progress.timerSeconds)}</span>
+                                <span className="timer-pause-button"
+                                      onClick={() => {
+                                          this.setState((prevState) => {
+                                              prevState.progress.paused = !prevState.progress.paused;
+                                              return prevState;
+                                          })
+                                      }}>
+                                    <i className="fas fa-pause icon"/>
+                                </span>
                             </div>
                         </div>
                     </div>
