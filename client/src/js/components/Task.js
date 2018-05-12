@@ -35,6 +35,10 @@ export default class Task extends Component {
             for (let e of document.getElementsByClassName('task'))
                 e.classList.remove('active-task');
             document.getElementById('task-' + this.props.task.id).classList.add('active-task');
+            document.querySelectorAll('.task-edit-' + this.props.task.id + ' .task-description-input').forEach((o) => {
+                o.style.height = "1px";
+                o.style.height = (23 + o.scrollHeight) + "px";
+            });
         }
     }
 
@@ -129,6 +133,15 @@ export default class Task extends Component {
 
     static renderDescription(desc) {
         if (desc) {
+            // Shorten text without cutting words
+            const allowedLength = 95;
+            if (desc.length > allowedLength) {
+                const initial = desc;
+                desc = desc.substr(0, allowedLength);
+                desc = desc.substr(0, Math.min(desc.length, desc.lastIndexOf(' ')));
+                if (desc != initial)
+                    desc += '...';
+            }
             // Search for links
             const matches = linkify.match(desc);
             if (typeof matches !== 'undefined' && matches !== null) {

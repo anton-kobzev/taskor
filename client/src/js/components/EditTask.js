@@ -20,6 +20,11 @@ export default class EditTask extends Component {
         let state = Object.assign({}, this.state.task);
         state[key] = e.target.value;
         this.setState({task: state});
+        if (e.target.classList.contains('task-description-input')) {
+            // Adjust textarea height
+            e.target.style.height = "1px";
+            e.target.style.height = (23 + e.target.scrollHeight) + "px";
+        }
     }
 
     handleSubmit(e) {
@@ -37,7 +42,7 @@ export default class EditTask extends Component {
 
     render() {
         return (
-            <div className="task-edit">
+            <div className={"task-edit task-edit-" + this.props.task.id}>
                 <form onSubmit={this.handleSubmit} onClick={this.handleClick}>
                     <div className="d-flex justify-content-between">
                         <div className="task-edit-inner">
