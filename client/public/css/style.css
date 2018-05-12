@@ -6413,24 +6413,34 @@ input {
   border: 1px solid #ededed;
   border-bottom: none;
   font-size: 1.1em; }
-
-.timer-container .icon {
-  margin-right: .4em;
-  position: relative;
-  bottom: 1px; }
-
-.timer-container .text {
-  opacity: .6; }
-
-.timer-container .task-name {
-  margin-right: .7em; }
-
-.timer-container .time {
-  font-size: 1.3em;
-  font-weight: lighter;
-  display: inline-block;
-  width: 100px;
-  text-align: left; }
+  .timer-container .timer .icon {
+    margin-right: .4em;
+    position: relative;
+    bottom: 1px; }
+  .timer-container .timer .text {
+    opacity: .6; }
+  .timer-container .timer .task-name {
+    margin-right: .7em; }
+  .timer-container .timer .time {
+    font-size: 1.3em;
+    font-weight: lighter;
+    display: inline-block;
+    width: 87px;
+    text-align: left; }
+  .timer-container .timer .timer-button {
+    cursor: pointer;
+    padding: 12px 7px;
+    opacity: .9; }
+    .timer-container .timer .timer-button:hover {
+      opacity: .7;
+      transition: opacity .5s, color .5s; }
+  .timer-container .timer .timer-button-stop {
+    position: relative;
+    bottom: 1px; }
+  .timer-container .timer.paused .timer-button-pause {
+    opacity: 1; }
+  .timer-container .timer.paused .icon, .timer-container .timer.paused .time {
+    color: #d5573b; }
 
 .analyze-container {
   background-color: #fff; }

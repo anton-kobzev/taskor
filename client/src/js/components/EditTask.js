@@ -6,11 +6,14 @@ export default class EditTask extends Component {
         this.state = {
             task: props.task
         };
-
-        //Boilerplate code for binding methods with `this`
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.task !== this.state.task)
+            this.setState({task: nextProps.task});
     }
 
     handleInput(key, e) {
@@ -47,12 +50,15 @@ export default class EditTask extends Component {
                         </div>
                         <div className="task-actions d-flex align-items-center">
                             <i className="far fa-clock task-estimate-time-icon"/>
-                            <input type="text" className="task-small-input task-estimate-time-input" placeholder="оценка"
-                                   onChange={(e) => this.handleInput('estimateTime', e)} value={this.state.task.estimateTime > 0 ? this.state.task.estimateTime : ''}/>
+                            <input type="text" className="task-small-input task-estimate-time-input"
+                                   placeholder="оценка"
+                                   onChange={(e) => this.handleInput('estimateTime', e)}
+                                   value={this.state.task.estimateTime > 0 ? this.state.task.estimateTime : ''}/>
 
                             <i className="far fa-check-circle task-actual-time-icon"/>
                             <input type="text" className="task-small-input task-actual-time-input" placeholder="ушло"
-                                   onChange={(e) => this.handleInput('actualTime', e)} value={this.state.task.actualTime > 0 ? this.state.task.actualTime : ''}/>
+                                   onChange={(e) => this.handleInput('actualTime', e)}
+                                   value={this.state.task.actualTime > 0 ? this.state.task.actualTime : ''}/>
 
                             <a href="javascript:" title="Удалить" className="action action-icon" onClick={() => {
                                 this.props.onDelete(this.state.task)

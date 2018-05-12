@@ -201,17 +201,20 @@ input
             font-size: 1.3em
             font-weight: lighter
             display: inline-block
-            width: 75px
+            width: 87px
             text-align: left
-        .timer-pause-button
+        .timer-button
             cursor: pointer
-            padding: 10px
+            padding: 12px 7px
             opacity: .9
             &:hover
                 opacity: .7
                 transition: opacity .5s, color .5s
+        .timer-button-stop
+            position: relative
+            bottom: 1px
         &.paused
-            .timer-pause-button
+            .timer-button-pause
                 opacity: 1
             .icon, .time
                 color: $primary

@@ -42,7 +42,7 @@ module.exports = function(Task) {
                     },
                     {
                         title: 'Затрачено',
-                        value: sumActualTime,
+                        value: Math.round(sumActualTime * 100) / 100,
                         unit: 'ч',
                         icon: 'fas fa-clock',
                     },

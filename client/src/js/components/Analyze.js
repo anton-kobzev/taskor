@@ -48,7 +48,8 @@ export default class Analyze extends Component {
                                 <span className="unit"> {item.unit}</span>
                             </div>
                         </div>
-                    </div>);
+                    </div>
+                );
 
                 content = <div className="analyze-container">
                     <div className="row">
