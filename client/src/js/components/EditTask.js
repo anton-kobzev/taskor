@@ -12,8 +12,12 @@ export default class EditTask extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.task !== this.state.task)
-            this.setState({task: nextProps.task});
+        if (nextProps.task.actualTime !== this.state.task.actualTime)
+            this.setState((prevState) => {
+                const task = prevState.task;
+                task.actualTime = nextProps.task.actualTime;
+                return {task};
+            });
     }
 
     handleInput(key, e) {
