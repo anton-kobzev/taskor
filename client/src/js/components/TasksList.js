@@ -190,7 +190,7 @@ export default class TasksList extends Component {
             if (!this.state.progress.paused) {
                 this.setState((prevState) => {
                     let progress = prevState.progress;
-                    progress.timerSeconds += 50;
+                    progress.timerSeconds++;
                     return {progress};
                 }, () => {
                     if (this.state.progress.timerSeconds % 300 == 0) {
