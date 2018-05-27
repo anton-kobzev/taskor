@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "server/server.js",
     "engines": {
-        "node": "^8"
+        "node": ">=8"
     },
     "scripts": {
         "start": "MONGODB_URL=\"mongodb://taskor:drkDGVVt4sGtxPZy@cluster0-shard-00-00-kxmsk.mongodb.net:27017,cluster0-shard-00-01-kxmsk.mongodb.net:27017,cluster0-shard-00-02-kxmsk.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin\" node server/server.js",
