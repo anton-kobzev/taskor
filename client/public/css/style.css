@@ -6273,6 +6273,10 @@ body {
 input {
   outline: none !important; }
 
+.list-group-item {
+  margin-bottom: 0;
+  border-top: none; }
+
 .loading {
   text-align: center;
   font-size: 1.5rem;
@@ -6297,6 +6301,10 @@ input {
       display: block; }
       .task.task-done .task-actions-prepend .action {
         color: inherit; }
+  .task.task-in-progress {
+    border-left: .25rem solid #dcb852;
+    padding-left: 1.75rem;
+    background: #f5f5f5; }
   .task .task-name {
     font-size: 16px;
     position: relative; }
@@ -6411,7 +6419,6 @@ input {
   text-align: center;
   background-color: #fff;
   border: 1px solid #ededed;
-  border-bottom: none;
   font-size: 1.1em; }
   .timer-container .timer .icon {
     margin-right: .4em;
