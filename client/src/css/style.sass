@@ -11,6 +11,10 @@ body
 input
     outline: none !important
 
+.list-group-item
+    margin-bottom: 0
+    border-top: none
+
 .loading
     text-align: center
     font-size: 1.5rem
@@ -42,6 +46,11 @@ input
 
             .action
                 color: inherit
+
+    &.task-in-progress
+        border-left: .25rem solid #dcb852
+        padding-left: 1.75rem
+        background: #f5f5f5
 
     .task-name
         font-size: 16px
@@ -187,7 +196,6 @@ input
         text-align: center
         background-color: $list-group-bg
         border: $list-group-border-width solid $list-group-border-color
-        border-bottom: none
         font-size: 1.1em
         .icon
             margin-right: .4em

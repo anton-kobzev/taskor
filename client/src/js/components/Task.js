@@ -65,8 +65,8 @@ export default class Task extends Component {
     render() {
         let task = this.props.task;
         return (
-            <div className={"list-group-item flex-column align-items-start task" + (task.done ? " task-done" : "")}
-                 id={'task-' + task.id}>
+            <div className={"list-group-item flex-column align-items-start task" + (task.done ? " task-done" : "")
+                + (this.props.inProgress ? " task-in-progress" : "")} id={'task-' + task.id}>
 
                 <div className="task-actions task-actions-prepend">
                     {task.done ? (

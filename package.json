@@ -9,6 +9,7 @@
         "start": "MONGODB_URL=\"mongodb://taskor:drkDGVVt4sGtxPZy@cluster0-shard-00-00-kxmsk.mongodb.net:27017,cluster0-shard-00-01-kxmsk.mongodb.net:27017,cluster0-shard-00-02-kxmsk.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin\" node server/server.js",
         "babel-node": "babel-node",
         "watch": "npx webpack --watch --progress --colors --hide-modules & nodemon --watch server --exec npm run babel-node -- server/**/* & npm start",
+        "dev": "NODE_ENV=development npm run watch",
         "test": "NODE_ENV=test nyc mocha tests/**/*.test.js"
     },
     "dependencies": {

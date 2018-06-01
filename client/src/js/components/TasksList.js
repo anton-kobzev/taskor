@@ -132,7 +132,8 @@ export default class TasksList extends Component {
             }
             else {
                 content = this.state.tasks.map(task =>
-                    <Task task={task} key={task.id} onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}
+                    <Task task={task} key={task.id} inProgress={this.state.progress && this.state.progress.task.id == task.id}
+                          onEdit={this.handleEditTask} onDelete={this.handleDeleteTask}
                           onDone={this.handleDoneTask} onNotDone={this.handleUnDoneTask}
                           onArchive={this.handleArchiveTask} onTimerStart={this.startTimer}/>);
             }
