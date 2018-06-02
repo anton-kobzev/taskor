@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+module.exports = [{
     mode: 'development',
     entry: ['./client/src/js/app.js', './client/src/css/style.sass'],
     output: {
@@ -51,4 +51,25 @@ module.exports = {
     externals: [
         require('webpack-require-http')
     ],
-};
+}, {
+    mode: 'development',
+    entry: {
+        'sw.js': './client/src/js/sw.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'client/public'),
+        filename: '[name]'
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: '/node_modules',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'react', 'stage-2']
+                }
+            }
+        }]
+    }
+}];
