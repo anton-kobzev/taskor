@@ -1,41 +1,34 @@
-var CACHE_NAME = 'taskor-2f1a22';
+const CACHE_NAME = 'taskor-2f1a24';
+const APP_SHELL_TO_CACHE = [
+    '/',
+    'js/bundle.js',
+    'css/style.css'
+];
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll([
-                '/',
-                'js/bundle.js',
-                'css/style.css'
-            ]);
-        })
+        caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL_TO_CACHE))
     );
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(function(cacheNames) {
-            return Promise.all(
-                cacheNames.filter(function(cacheName) {
-                    return cacheName.startsWith('taskor-') &&
-                        cacheName != CACHE_NAME;
-                }).map(function(cacheName) {
-                    return caches.delete(cacheName);
-                })
-            );
-        })
+        caches.keys().then(cacheNames => Promise.all(
+            cacheNames
+                .filter(cacheName => cacheName.startsWith('taskor-') && cacheName != CACHE_NAME)
+                .map(cacheName => caches.delete(cacheName))
+        ))
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.open(CACHE_NAME).then(function(cache) {
-            return cache.match(event.request).then(function(response) {
-                return response || fetch(event.request).then(function(response) {
-                    cache.put(event.request, response.clone());
-                    return response;
-                });
-            });
-        })
-    );
+self.addEventListener('fetch', event => {
+    if (event.request.url.indexOf('/api') != -1) {
+        event.respondWith(fetch(event.request));
+    }
+    else {
+        event.respondWith(
+            caches.open(CACHE_NAME)
+                .then(cache => cache.match(event.request).then(response => response || fetch(event.request)))
+        );
+    }
 });
