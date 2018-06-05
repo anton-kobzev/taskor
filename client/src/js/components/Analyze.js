@@ -38,8 +38,8 @@ export default class Analyze extends Component {
                 content = <div className='alert alert-danger'>{this.state.error.message}</div>;
             }
             else {
-                let analyzeItems = this.state.result.items.map((item) =>
-                    <div className="col analyze-item">
+                let analyzeItems = this.state.result.items.map((item, index) =>
+                    <div className="col analyze-item" key={index}>
                         <div className="row no-gutters">
                             <div className="col-3 icon"><i className={item.icon + ' fa-2x'}/></div>
                             <div className="col">
@@ -57,7 +57,6 @@ export default class Analyze extends Component {
                             <div className="level">
                                 <i className="fas fa-chess level-icon"/>
                                 Уровень: <span className="level-number">{this.state.result.level}</span>
-                                <span className="level-tip">закрыто / затрачено</span>
                             </div>
                         </div>
                     </div>
