@@ -66,7 +66,7 @@ export default class Task extends Component {
         let task = this.props.task;
         return (
             <div className={"list-group-item flex-column align-items-start task" + (task.done ? " task-done" : "")
-                + (this.props.inProgress ? " task-in-progress" : "")} id={'task-' + task.id}>
+            + (this.props.inProgress ? " task-in-progress" : "")} id={'task-' + task.id}>
 
                 <div className="task-actions task-actions-prepend">
                     {task.done ? (
@@ -84,14 +84,15 @@ export default class Task extends Component {
                         <span className="task-name">{task.name}</span>
                         <div className="d-flex">
                             <div className="task-actions">
-                                {task.done &&
-                                <a href="javascript:" title="Архивировать" className="action action-icon"
-                                   key={"task-" + task.id + "-archive"}
-                                   onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
+                                {task.done ?
+                                    <a href="javascript:" title="Архивировать" className="action action-icon"
+                                       key={"task-" + task.id + "-archive"}
+                                       onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
+                                    :
+                                    <button className="btn btn-outline-primary btn-sm" onClick={this.handleTimerStart}>
+                                        <i className="fas fa-angle-right"/> Начать работу
+                                    </button>
                                 }
-                                <button className="btn btn-outline-primary btn-sm" onClick={this.handleTimerStart}>
-                                    <i className="fas fa-angle-right"/> Начать работу
-                                </button>
                                 <a href="javascript:" title="Удалить" className="action action-icon"
                                    onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
                             </div>
