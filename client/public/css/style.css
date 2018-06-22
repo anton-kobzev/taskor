@@ -6335,13 +6335,16 @@ input {
   .task .task-actions, .task .task-edit {
     display: none; }
   .task .task-actions {
-    margin-right: -.5rem; }
+    margin-right: -.5rem;
+    height: 24px; }
     .task .task-actions .action {
       margin-right: .5rem;
       transition: all 0.2s ease-in-out; }
     .task .task-actions .action-icon {
       width: 20px;
       height: 20px; }
+    .task .task-actions .btn {
+      margin-right: 13px; }
     .task .task-actions .action-button {
       padding: 20px; }
   .task .task-actions-prepend {
@@ -6378,9 +6381,9 @@ input {
       margin-left: 0.1rem;
       text-align: center; }
     .task.active-task .task-actions {
-      margin-bottom: 10px; }
-    .task.active-task .task-actions {
-      display: block; }
+      display: block;
+      margin-bottom: 10px;
+      height: auto; }
     .task.active-task .task-actions-prepend {
       margin-top: .5rem; }
 

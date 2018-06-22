@@ -45,21 +45,13 @@ export default class Analyze extends Component {
                             <div className="col">
                                 <span className="title">{item.title}</span>
                                 <span className="value">{item.value}</span>
-                                <span className="unit"> {item.unit}</span>
+                                <span className="unit">{item.unit}</span>
                             </div>
                         </div>
                     </div>
                 );
 
                 content = <div className="analyze-container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="level">
-                                <i className="fas fa-chess level-icon"/>
-                                Уровень: <span className="level-number">{this.state.result.level}</span>
-                            </div>
-                        </div>
-                    </div>
                     <div className="row">
                         {analyzeItems}
                     </div>

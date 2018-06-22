@@ -104,6 +104,8 @@ export default class TasksList extends Component {
             {method: 'delete'})
             .then(() => {
                 this.removeTaskFromList(task);
+                if (this.state.progress.task.id == task.id)
+                    this.stopTimer();
             });
     };
 
@@ -186,6 +188,7 @@ export default class TasksList extends Component {
     }
 
     startTimer = (task) => {
+        this.stopTimer();  // Stop previous task
         const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task, paused: false};
         progress.timerId = setInterval(() => {
             if (!this.state.progress.paused) {
@@ -215,12 +218,14 @@ export default class TasksList extends Component {
     };
 
     stopTimer = () => {
-        clearInterval(this.state.progress.timerId);
-        // Sync timer with server
-        this.updateTask({
-            id: this.state.progress.task.id,
-            actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
-        });
-        this.setState({progress: null});
+        if (this.state.progress) {
+            clearInterval(this.state.progress.timerId);
+            // Sync timer with server
+            this.updateTask({
+                id: this.state.progress.task.id,
+                actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
+            });
+            this.setState({progress: null});
+        }
     };
 }

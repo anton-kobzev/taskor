@@ -9,7 +9,9 @@ export default class NavBar extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark">
-                <a className="navbar-brand" href="/">Задачки</a>
+                <a className="navbar-brand" href="/">
+                    Список задач
+                </a>
                 <ul className="navbar-nav mr-auto">
                     <li className={"nav-item" + (document.location.search == '?analyze' ? " active" : "")}>
                         <a className="nav-link" href="/?analyze">Анализ</a>

@@ -1,2 +1,2 @@
 require('./components/App');
-require('https://use.fontawesome.com/releases/v5.0.8/js/all.js');
+require('https://use.fontawesome.com/releases/v5.1.0/js/all.js');

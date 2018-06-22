@@ -89,8 +89,9 @@ export default class Task extends Component {
                                    key={"task-" + task.id + "-archive"}
                                    onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
                                 }
-                                <a href="javascript:" title="Начать работу" className="action action-icon"
-                                   onClick={this.handleTimerStart}><i className="fas fa-space-shuttle"/></a>
+                                <button className="btn btn-outline-primary btn-sm" onClick={this.handleTimerStart}>
+                                    <i className="fas fa-angle-right"/> Начать работу
+                                </button>
                                 <a href="javascript:" title="Удалить" className="action action-icon"
                                    onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
                             </div>
@@ -118,7 +119,7 @@ export default class Task extends Component {
                     <div className="modal-buttons">
                         <button className="btn btn-danger" onClick={() => (this.props.onDelete(task))} autoFocus>Да
                         </button>
-                        <button className="btn btn-secondary ml-1"
+                        <button className="btn btn-outline-secondary ml-1"
                                 onClick={() => (this.setState({showDeleteConfirmModal: false}))}>Нет
                         </button>
                     </div>

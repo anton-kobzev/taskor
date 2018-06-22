@@ -20,39 +20,36 @@ module.exports = function(Task) {
                 }
             }
 
+            sumActualTime = Math.round(sumActualTime * 100) / 100;
+
             let result = {
                 items: [
                     {
                         title: 'Выполнено',
-                        value: done,
-                        unit: 'задач',
+                        value: Math.round(done / tasks.length  * 100) || 0,
+                        unit: '% задач',
                         icon: 'fas fa-check',
-                    },
-                    {
-                        title: 'Всего',
-                        value: tasks.length,
-                        unit: 'задач',
-                        icon: 'far fa-sticky-note',
                     },
                     {
                         title: 'Закрыто',
                         value: sumEstimateTime,
-                        unit: 'ч',
+                        unit: ' ч',
                         icon: 'fas fa-bolt',
                     },
                     {
                         title: 'Затрачено',
-                        value: Math.round(sumActualTime * 100) / 100,
-                        unit: 'ч',
+                        value: sumActualTime,
+                        unit: ' ч',
                         icon: 'fas fa-clock',
+                    },
+                    {
+                        title: 'Коэффициент',
+                        value: sumEstimateTime / sumActualTime || 0,
+                        unit: '',
+                        icon: 'fas fa-asterisk',
                     },
                 ],
             };
-
-            if (sumActualTime == 0)
-                result.level = 0;
-            else
-                result.level = Math.round(sumEstimateTime / sumActualTime * 100) / 100;
 
             callback(null, result);
         });
