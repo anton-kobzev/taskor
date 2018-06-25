@@ -44,7 +44,7 @@ module.exports = function(Task) {
                     },
                     {
                         title: 'Коэффициент',
-                        value: sumEstimateTime / sumActualTime || 0,
+                        value: (Math.round(sumEstimateTime / sumActualTime * 100) / 100) || 0,
                         unit: '',
                         icon: 'fas fa-asterisk',
                     },

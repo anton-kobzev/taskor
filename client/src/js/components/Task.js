@@ -80,7 +80,7 @@ export default class Task extends Component {
                 </div>
 
                 <div className="task-view" onClick={this.handleEditTaskClick}>
-                    <div className="d-flex w-100 justify-content-between task-inner">
+                    <div className="d-flex w-100 justify-content-between task-inner task-inner-top">
                         <span className="task-name">{task.name}</span>
                         <div className="d-flex">
                             <div className="task-actions">

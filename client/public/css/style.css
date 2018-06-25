@@ -6326,12 +6326,16 @@ input {
     margin-left: .6rem;
     font-size: 14px;
     color: #444; }
+    .task .task-time.task-estimate-time {
+      margin-top: .2rem; }
   .task .task-data-icon {
     margin-right: .1rem; }
   .task .task-estimate-time-icon {
     color: #d5573b; }
   .task .task-actual-time-icon {
     color: #3ca200; }
+  .task .task-inner-top {
+    height: 29px; }
   .task .task-actions, .task .task-edit {
     display: none; }
   .task .task-actions {
