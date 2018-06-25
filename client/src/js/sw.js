@@ -1,4 +1,7 @@
-const CACHE_NAME = 'taskor-2f1a28';  // Depends on app version
+import * as AppInfo from './utils/AppInfo';
+
+const CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION;
+
 const APP_SHELL_TO_CACHE = [
     '/',
     'js/bundle.js',

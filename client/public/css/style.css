@@ -6400,6 +6400,11 @@ input {
     border-color: #f3f3f3;
     background: #f3f3f3; }
 
+.footer .app-info {
+  padding: 1em 0 0 2em;
+  font-size: 0.8em;
+  opacity: 0.2; }
+
 .ReactModal__Overlay {
   z-index: 100000; }
 

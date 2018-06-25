@@ -89,9 +89,15 @@ export default class Task extends Component {
                                        key={"task-" + task.id + "-archive"}
                                        onClick={this.handleArchiveTask}><i className="fas fa-archive"/></a>
                                     :
-                                    <button className="btn btn-outline-primary btn-sm" onClick={this.handleTimerStart}>
-                                        <i className="fas fa-angle-right"/> Начать работу
-                                    </button>
+                                    (this.props.inProgress ?
+                                        <button className="btn btn-outline-primary btn-sm" disabled>
+                                            <i className="far fa-clock"/> В работе
+                                        </button>
+                                        :
+                                        <button className="btn btn-outline-primary btn-sm" onClick={this.handleTimerStart}>
+                                            <i className="far fa-clock"/> Начать работу
+                                        </button>
+                                    )
                                 }
                                 <a href="javascript:" title="Удалить" className="action action-icon"
                                    onClick={this.handleDeleteTask}><i className="fas fa-trash"/></a>
