@@ -11,44 +11,27 @@ module.exports = function(Task) {
      */
     Task.analyze = function(callback) {
         Task.find({where: {archive: false}}, (err, tasks) => {
-            let sumEstimateTime = 0, sumActualTime = 0, done = 0;
+            let sumEstimateTime = 0,
+                sumActualTime = 0,
+                doneTasksCount = 0,
+                potentialEstimateTime = 0;
             for (let task of tasks) {
                 if (task.done) {
                     sumEstimateTime += task.estimateTime;
                     sumActualTime += task.actualTime;
-                    done++;
+                    doneTasksCount++;
+                } else {
+                    potentialEstimateTime += task.estimateTime ? task.estimateTime : task.actualTime * 2;
                 }
             }
 
             sumActualTime = Math.round(sumActualTime * 100) / 100;
 
             let result = {
-                items: [
-                    {
-                        title: 'Выполнено',
-                        value: Math.round(done / tasks.length  * 100) || 0,
-                        unit: '% задач',
-                        icon: 'fas fa-check',
-                    },
-                    {
-                        title: 'Закрыто',
-                        value: sumEstimateTime,
-                        unit: ' ч',
-                        icon: 'fas fa-bolt',
-                    },
-                    {
-                        title: 'Затрачено',
-                        value: sumActualTime,
-                        unit: ' ч',
-                        icon: 'fas fa-clock',
-                    },
-                    {
-                        title: 'Коэффициент',
-                        value: (Math.round(sumEstimateTime / sumActualTime * 100) / 100) || 0,
-                        unit: '',
-                        icon: 'fas fa-asterisk',
-                    },
-                ],
+                sumEstimateTime: sumEstimateTime,
+                potentialEstimateTime: sumEstimateTime + potentialEstimateTime,
+                sumActualTime: sumActualTime,
+                koeff: (Math.round(sumEstimateTime / sumActualTime * 100) / 100) || 0,
             };
 
             callback(null, result);

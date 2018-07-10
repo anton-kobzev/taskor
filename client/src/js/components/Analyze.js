@@ -38,22 +38,48 @@ export default class Analyze extends Component {
                 content = <div className='alert alert-danger'>{this.state.error.message}</div>;
             }
             else {
-                let analyzeItems = this.state.result.items.map((item, index) =>
+                const result = this.state.result;
+                let analyzeCardItems = [
+                    {
+                        title: 'Закрыто',
+                        value: result.sumEstimateTime,
+                        unit: 'ч',
+                        icon: 'fas fa-bolt',
+                        tip: result.potentialEstimateTime == result.sumEstimateTime ? '' :
+                            `потенциально ${result.potentialEstimateTime} ч`,
+                    },
+                    {
+                        title: 'Затрачено',
+                        value: result.sumActualTime,
+                        unit: ' ч',
+                        icon: 'fas fa-clock',
+                        tip: '',
+                    },
+                    {
+                        title: 'Коэффициент',
+                        value: result.koeff,
+                        unit: '',
+                        icon: 'fas fa-asterisk',
+                        tip: '',
+                    },
+                ];
+
+                const analyzeCardItemsRendered = analyzeCardItems.map((item, index) =>
                     <div className="col analyze-item" key={index}>
                         <div className="row no-gutters">
                             <div className="col-3 icon"><i className={item.icon + ' fa-2x'}/></div>
                             <div className="col">
                                 <span className="title">{item.title}</span>
                                 <span className="value">{item.value}</span>
-                                <span className="unit">{item.unit}</span>
+                                <span className="unit"> {item.unit}</span>
+                                <span className="tip">{item.tip}</span>
                             </div>
                         </div>
-                    </div>
-                );
+                    </div>);
 
                 content = <div className="analyze-container">
                     <div className="row">
-                        {analyzeItems}
+                        {analyzeCardItemsRendered}
                     </div>
                 </div>;
             }

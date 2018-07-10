@@ -8,23 +8,23 @@ export default class TasksList extends Component {
         super();
         this.state = {
             tasks: [],
+            filter: {
+                where: {
+                    archive: false
+                },
+                order: "done",
+            },
             loaded: false,
             progress: null,
         };
     }
 
     componentDidMount() {
-        let date = new Date();
-        date.setDate(1);
-        date.setHours(0, 0, 0);
-        const filter = {
-            where: {
-                // createdAt: {"gte": date.toISOString()},
-                archive: false
-            },
-            order: "done",
-        };
-        fetch('/api/tasks/?filter=' + JSON.stringify(filter))
+        this.fetchTaskList();
+    }
+
+    fetchTaskList() {
+        fetch('/api/tasks/?filter=' + JSON.stringify(this.state.filter))
             .then(response => {
                 if (response.ok)
                     return response.json();
@@ -44,7 +44,6 @@ export default class TasksList extends Component {
             });
     }
 
-    // Update and delete helpers
     updateTask(task) {
         return fetch('/api/tasks/' + task.id, {
             method: 'PATCH',
@@ -125,6 +124,48 @@ export default class TasksList extends Component {
         this.removeTaskFromList(task);
     };
 
+    startTimer = (task) => {
+        this.stopTimer();  // Stop previous task
+        const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task, paused: false};
+        progress.timerId = setInterval(() => {
+            if (!this.state.progress.paused) {
+                this.setState((prevState) => {
+                    let progress = prevState.progress;
+                    progress.timerSeconds++;
+                    return {progress};
+                }, () => {
+                    if (this.state.progress.timerSeconds % 300 == 0) {
+                        // Sync timer with server
+                        this.updateTask({
+                            id: this.state.progress.task.id,
+                            actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
+                        });
+                    }
+                });
+            }
+        }, 1000);
+        this.setState({progress});
+    };
+
+    togglePauseTimer = () => {
+        this.setState((prevState) => {
+            prevState.progress.paused = !prevState.progress.paused;
+            return prevState;
+        });
+    };
+
+    stopTimer = () => {
+        if (this.state.progress) {
+            clearInterval(this.state.progress.timerId);
+            // Sync timer with server
+            this.updateTask({
+                id: this.state.progress.task.id,
+                actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
+            });
+            this.setState({progress: null});
+        }
+    };
+
     renderTasks() {
         let content;
 
@@ -186,46 +227,4 @@ export default class TasksList extends Component {
             </div>
         );
     }
-
-    startTimer = (task) => {
-        this.stopTimer();  // Stop previous task
-        const progress = {timerSeconds: task.actualTime * 3600, timerId: 0, task: task, paused: false};
-        progress.timerId = setInterval(() => {
-            if (!this.state.progress.paused) {
-                this.setState((prevState) => {
-                    let progress = prevState.progress;
-                    progress.timerSeconds++;
-                    return {progress};
-                }, () => {
-                    if (this.state.progress.timerSeconds % 300 == 0) {
-                        // Sync timer with server
-                        this.updateTask({
-                            id: this.state.progress.task.id,
-                            actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
-                        });
-                    }
-                });
-            }
-        }, 1000);
-        this.setState({progress});
-    };
-
-    togglePauseTimer = () => {
-        this.setState((prevState) => {
-            prevState.progress.paused = !prevState.progress.paused;
-            return prevState;
-        });
-    };
-
-    stopTimer = () => {
-        if (this.state.progress) {
-            clearInterval(this.state.progress.timerId);
-            // Sync timer with server
-            this.updateTask({
-                id: this.state.progress.task.id,
-                actualTime: Math.round(this.state.progress.timerSeconds / 3600 * 10) / 10,
-            });
-            this.setState({progress: null});
-        }
-    };
 }

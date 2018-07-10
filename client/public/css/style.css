@@ -6487,3 +6487,7 @@ input {
     .analyze-container .analyze-item .value {
       font-size: 1.5rem;
       font-weight: bold; }
+    .analyze-container .analyze-item .tip {
+      font-size: .9em;
+      opacity: .8;
+      display: block; }
