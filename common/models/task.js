@@ -26,10 +26,11 @@ module.exports = function(Task) {
             }
 
             sumActualTime = roundTwoDigits(sumActualTime);
+            sumEstimateTime = roundTwoDigits(sumEstimateTime);
 
             let result = {
                 sumEstimateTime: sumEstimateTime,
-                potentialEstimateTime: sumEstimateTime + potentialEstimateTime,
+                potentialEstimateTime: roundTwoDigits(sumEstimateTime + potentialEstimateTime),
                 sumActualTime: sumActualTime,
                 koeff: (roundTwoDigits(sumEstimateTime / sumActualTime)) || 0,
             };
