@@ -25,16 +25,20 @@ module.exports = function(Task) {
                 }
             }
 
-            sumActualTime = Math.round(sumActualTime * 100) / 100;
+            sumActualTime = roundTwoDigits(sumActualTime);
 
             let result = {
                 sumEstimateTime: sumEstimateTime,
                 potentialEstimateTime: sumEstimateTime + potentialEstimateTime,
                 sumActualTime: sumActualTime,
-                koeff: (Math.round(sumEstimateTime / sumActualTime * 100) / 100) || 0,
+                koeff: (roundTwoDigits(sumEstimateTime / sumActualTime)) || 0,
             };
 
             callback(null, result);
         });
     };
 };
+
+function roundTwoDigits(num) {
+    return Math.round(num * 100) / 100;
+}
