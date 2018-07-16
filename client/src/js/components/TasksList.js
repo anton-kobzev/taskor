@@ -7,8 +7,11 @@ export default class TasksList extends Component {
     constructor() {
         super();
         this.state = {
-            tasksDisplayed: [],
             tasks: [],
+            filter: {
+                active: false,
+                tasksDisplayedIds: []
+            },
             loaded: false,
             progress: null
         };
@@ -25,8 +28,8 @@ export default class TasksList extends Component {
                 this.fetchTaskList(filterQuery);
             } else {
                 this.setState((prevState, props) => {
-                    return {
-                        tasksDisplayed: prevState.tasks.filter(
+                    const tasksDisplayedIds = prevState.tasks
+                        .filter(
                             task =>
                                 props.filter.where.name == "" ||
                                 task.name
@@ -35,6 +38,12 @@ export default class TasksList extends Component {
                                         props.filter.where.name.toLowerCase()
                                     )
                         )
+                        .map(task => task.id);
+                    return {
+                        filter: {
+                            active: true,
+                            tasksDisplayedIds: tasksDisplayedIds
+                        }
                     };
                 });
                 this.lastFilterQuery = filterQuery;
@@ -53,7 +62,7 @@ export default class TasksList extends Component {
             })
             .then(data => {
                 this.setState({
-                    tasksDisplayed: data,
+                    tasks: data,
                     tasks: data,
                     loaded: true
                 });
@@ -85,7 +94,7 @@ export default class TasksList extends Component {
 
     updateTaskInList(task) {
         this.setState(prevState => {
-            prevState.tasksDisplayed = prevState.tasks.map(
+            prevState.tasks = prevState.tasks.map(
                 currentTask => (currentTask.id === task.id ? task : currentTask)
             );
             return prevState;
@@ -93,10 +102,10 @@ export default class TasksList extends Component {
     }
 
     removeTaskFromList(task) {
-        let array = this.state.tasksDisplayed.filter(function(item) {
+        let array = this.state.tasks.filter(function(item) {
             return item !== task;
         });
-        this.setState({ tasksDisplayed: array });
+        this.setState({ tasks: array });
     }
 
     handleAddTask = task => {
@@ -115,7 +124,7 @@ export default class TasksList extends Component {
                 this.setState(prevState => {
                     const tasks = prevState.tasks.concat(data);
                     return {
-                        tasksDisplayed: tasks,
+                        tasks: tasks,
                         tasks: tasks
                     };
                 });
@@ -216,22 +225,30 @@ export default class TasksList extends Component {
                     </div>
                 );
             } else {
-                content = this.state.tasksDisplayed.map(task => (
-                    <Task
-                        task={task}
-                        key={task.id}
-                        inProgress={
-                            this.state.progress &&
-                            this.state.progress.task.id == task.id
-                        }
-                        onEdit={this.handleEditTask}
-                        onDelete={this.handleDeleteTask}
-                        onDone={this.handleDoneTask}
-                        onNotDone={this.handleUnDoneTask}
-                        onArchive={this.handleArchiveTask}
-                        onTimerStart={this.startTimer}
-                    />
-                ));
+                content = this.state.tasks
+                    .filter(
+                        task =>
+                            !this.state.filter.active ||
+                            this.state.filter.tasksDisplayedIds.includes(
+                                task.id
+                            )
+                    )
+                    .map(task => (
+                        <Task
+                            task={task}
+                            key={task.id}
+                            inProgress={
+                                this.state.progress &&
+                                this.state.progress.task.id == task.id
+                            }
+                            onEdit={this.handleEditTask}
+                            onDelete={this.handleDeleteTask}
+                            onDone={this.handleDoneTask}
+                            onNotDone={this.handleUnDoneTask}
+                            onArchive={this.handleArchiveTask}
+                            onTimerStart={this.startTimer}
+                        />
+                    ));
             }
         } else {
             content = (
@@ -256,7 +273,12 @@ export default class TasksList extends Component {
                     >
                         <span className="text">В работе: </span>
                         <span className="task-name">
-                            {this.state.progress.task.name}{" "}
+                            {
+                                this.state.tasks.find(
+                                    task =>
+                                        task.id == this.state.progress.task.id
+                                ).name
+                            }
                         </span>
                         <i className="far fa-clock icon" />
                         <span className="time">
@@ -274,7 +296,7 @@ export default class TasksList extends Component {
                             className="icon-button timer-button-stop"
                             onClick={this.stopTimer}
                         >
-                            <i className="fas fa-square" />
+                            <i className="fas fa-square icon" />
                         </span>
                     </div>
                 </div>

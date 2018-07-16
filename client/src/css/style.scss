@@ -75,7 +75,7 @@ input {
         .icon {
             margin-right: 0.4em;
             position: relative;
-            bottom: 1px;
+            bottom: 3px;
         }
 
         .text {
@@ -111,18 +111,12 @@ input {
             text-align: left;
         }
 
-        .timer-button-stop {
-            position: relative;
-            bottom: 1px;
-        }
-
         &.paused {
             .timer-button-pause {
                 opacity: 1;
             }
 
-            .icon,
-            .time {
+            .time, .icon:not(.fa-square) {
                 color: $primary;
             }
         }
