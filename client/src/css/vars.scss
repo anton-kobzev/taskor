@@ -1,0 +1,42 @@
+// Colors
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$primary: #d5573b;
+$secondary: #6b6d6d;
+$success: #3ca200;
+$info: #c6ecae;
+$warning: #d5573b;
+$danger: #d5573b;
+$light: #fafafa;
+$dark: #68696d;
+
+$theme-colors: ("primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark);
+
+// Body
+$body-bg: $light;
+
+// Typography
+$font-family-sans-serif: "Fira Sans", sans-serif;
+$font-family-monospace: "Fira Mono", $font-family-sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Borders
+$enable-rounded: true;
+$border-radius: 0.1rem;
+$border-radius-lg: 0.1rem;
+$border-radius-sm: 0.1rem;
+
+// List group
+$list-group-border-color: darken($light, 5%);
+
+// Inputs
+$input-focus-box-shadow: none;
