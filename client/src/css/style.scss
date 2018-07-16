@@ -1,0 +1,408 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
+// Variables
+@import "vars";
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    padding-bottom: 15em;
+}
+
+input {
+    outline: none !important;
+}
+
+.list-group-item {
+    margin-bottom: 0;
+    border-top: none;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    padding: 2rem;
+}
+
+.navbar {
+    padding-left: 2rem;
+}
+
+.tasks-filter {
+    .search-input-group {
+        width: 30rem;
+        $tasks-filter-input-color: lighten($primary, 50%);
+        $tasks-filter-input-color-dark: lighten($primary, 20%);
+        font-family: $font-family-monospace;
+        position: relative;
+        input {
+            height: 44px;
+            padding-left: 35px;
+            border: none;
+            background: darken($primary, 8%);
+            color: $tasks-filter-input-color;
+            caret-color: $tasks-filter-input-color;
+            &::placeholder {
+                color: $tasks-filter-input-color-dark;
+            }
+        }
+        .input-group-prepend {
+            position: absolute;
+            left: 13px;
+            top: 14px;
+            z-index: 4;
+            color: $tasks-filter-input-color-dark;
+            transition: color .1s;
+        }
+        &:focus-within .input-group-prepend {
+            color: $tasks-filter-input-color;
+        }
+    }
+}
+
+.task-list-container {
+    background-color: $list-group-bg;
+    border: $list-group-border-width solid $list-group-border-color;
+    border-top: none;
+
+    .list-group-item {
+        border: none;
+        border-top: $list-group-border-width solid $list-group-border-color;
+    }
+
+    .panel {
+        .icon {
+            margin-right: 0.4em;
+            position: relative;
+            bottom: 1px;
+        }
+
+        .text {
+            opacity: 0.6;
+        }
+
+        .icon-button {
+            cursor: pointer;
+            padding: 12px 7px;
+            opacity: 0.9;
+
+            &:hover {
+                opacity: 0.7;
+                transition: opacity 0.4s, color 0.4s;
+            }
+        }
+    }
+
+    .timer {
+        padding: 1em;
+        text-align: center;
+        font-size: 1.1em;
+
+        .task-name {
+            margin-right: 0.7em;
+        }
+
+        .time {
+            font-size: 1.3em;
+            font-weight: lighter;
+            display: inline-block;
+            width: 87px;
+            text-align: left;
+        }
+
+        .timer-button-stop {
+            position: relative;
+            bottom: 1px;
+        }
+
+        &.paused {
+            .timer-button-pause {
+                opacity: 1;
+            }
+
+            .icon,
+            .time {
+                color: $primary;
+            }
+        }
+    }
+}
+
+.task {
+    padding: 0.5rem 0.7rem 0.5rem 2rem;
+    transition: $transition-base;
+    transition-duration: .1s;
+
+    &.task-done {
+        opacity: 0.6;
+
+        .task-name {
+            &::before {
+                width: 100%;
+            }
+        }
+
+        .task-actions-prepend {
+            display: block;
+
+            .action {
+                color: inherit;
+            }
+        }
+    }
+
+    &.task-in-progress {
+        border-left: 0.25rem solid #dcb852;
+        padding-left: 1.75rem;
+        background: #f5f5f5;
+    }
+
+    .task-name {
+        font-size: 16px;
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.6);
+            transition: width 0.4s ease-in;
+        }
+    }
+
+    .task-description {
+        font-size: 13px;
+        margin-bottom: 0;
+        opacity: 0.6;
+    }
+
+    .task-time {
+        margin-left: 0.6rem;
+        font-size: 14px;
+        color: #444;
+
+        &.task-estimate-time {
+            margin-top: 0.2rem;
+        }
+    }
+
+    .task-data-icon {
+        margin-right: 0.1rem;
+    }
+
+    .task-estimate-time-icon {
+        color: $primary;
+    }
+
+    .task-actual-time-icon {
+        color: $success;
+    }
+
+    .task-inner-top {
+        height: 29px;
+    }
+
+    .task-actions,
+    .task-edit {
+        display: none;
+    }
+
+    .task-actions {
+        margin-right: -0.5rem;
+        height: 24px;
+
+        .action {
+            margin-right: 0.5rem;
+            transition: $transition-base;
+        }
+
+        .action-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn {
+            margin-right: 13px;
+        }
+
+        .action-button {
+            padding: 20px;
+        }
+    }
+
+    .task-actions-prepend {
+        position: absolute;
+        left: 0.7rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+
+        .task-actions {
+            display: block;
+        }
+    }
+
+    &.active-task {
+        background-color: #f1f1f1;
+
+        .task-view {
+            display: none;
+        }
+
+        .task-edit {
+            display: block;
+
+            .task-edit-inner {
+                width: 70%;
+            }
+
+            input[type="text"],
+            textarea {
+                padding: 0.2rem;
+                background: none;
+                border: none;
+                border-bottom: 2px solid #d8d8d8;
+
+                &:focus {
+                    border-bottom: 2px solid #6f6f6f;
+                }
+            }
+        }
+
+        .task-name-input {
+            width: 60%;
+            font-size: 16px;
+        }
+
+        .task-description-input {
+            width: 60%;
+        }
+
+        .task-small-input {
+            width: 3.6rem;
+            margin-right: 0.5rem;
+            margin-left: 0.1rem;
+            text-align: center;
+        }
+
+        .task-actions {
+            display: block;
+            margin-bottom: 10px;
+            height: auto;
+        }
+
+        .task-actions-prepend {
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+.add-task-container {
+    margin-top: 1px;
+    .add-task-button {
+        padding: 11px 40px;
+        background: #f3f3f3;
+        float: right;
+        border: 5px solid #fafafa;
+
+        &:hover {
+            border-color: #f3f3f3;
+            background: #f3f3f3;
+        }
+    }
+}
+
+// Footer
+.footer {
+    .app-info {
+        padding: 1em 0 0 2em;
+        font-size: 0.8em;
+        opacity: 0.2;
+    }
+}
+
+// Modals
+.ReactModal__Overlay {
+    z-index: 100000;
+}
+
+.ReactModal__Content {
+    width: 230px;
+    height: 170px;
+    margin: auto;
+
+    .modal-title {
+        margin-top: 25px;
+    }
+
+    .modal-close {
+        color: black;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .modal-buttons {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+// Analyze
+.analyze-container {
+    background-color: #fff;
+
+    .level {
+        text-align: center;
+        padding: 3rem;
+        font-size: 2rem;
+        opacity: 0.8;
+        border-bottom: 1px solid #eaeaea;
+
+        .level-icon {
+            margin-right: 1rem;
+        }
+
+        .level-number {
+            font-weight: bold;
+            color: $success;
+        }
+    }
+
+    .analyze-item {
+        margin: 2rem;
+        padding: 1.6rem 0.9rem;
+        border: 1px solid #cecece;
+
+        .icon {
+            color: $success;
+            text-align: center;
+        }
+
+        .title {
+            display: block;
+            font-size: 1.2rem;
+        }
+
+        .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .tip {
+            font-size: 0.9em;
+            opacity: 0.8;
+            display: block;
+        }
+    }
+}

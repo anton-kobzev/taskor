@@ -1,16 +1,15 @@
-'use strict';
+"use strict";
 
 module.exports = function(Task) {
-    Task.definition.rawProperties.createdAt.default =
-        Task.definition.properties.createdAt.default = function() {
-            return new Date();
-        };
+    Task.definition.rawProperties.createdAt.default = Task.definition.properties.createdAt.default = function() {
+        return new Date();
+    };
 
     /**
      * Analyze your productivity
      */
     Task.analyze = function(callback) {
-        Task.find({where: {archive: false}}, (err, tasks) => {
+        Task.find({ where: { archive: false } }, (err, tasks) => {
             let sumEstimateTime = 0,
                 sumActualTime = 0,
                 doneTasksCount = 0,
@@ -21,7 +20,9 @@ module.exports = function(Task) {
                     sumActualTime += task.actualTime;
                     doneTasksCount++;
                 } else {
-                    potentialEstimateTime += task.estimateTime ? task.estimateTime : task.actualTime * 2;
+                    potentialEstimateTime += task.estimateTime
+                        ? task.estimateTime
+                        : task.actualTime * 2;
                 }
             }
 
@@ -30,9 +31,11 @@ module.exports = function(Task) {
 
             let result = {
                 sumEstimateTime: sumEstimateTime,
-                potentialEstimateTime: roundTwoDigits(sumEstimateTime + potentialEstimateTime),
+                potentialEstimateTime: roundTwoDigits(
+                    sumEstimateTime + potentialEstimateTime
+                ),
                 sumActualTime: sumActualTime,
-                koeff: (roundTwoDigits(sumEstimateTime / sumActualTime)) || 0,
+                koeff: roundTwoDigits(sumEstimateTime / sumActualTime) || 0
             };
 
             callback(null, result);

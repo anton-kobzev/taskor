@@ -1,97 +1,108 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 export default class Analyze extends Component {
     constructor() {
         super();
         this.state = {
             result: [],
-            loaded: false,
+            loaded: false
         };
     }
 
     componentDidMount() {
-        fetch('/api/tasks/analyze')
+        fetch("/api/tasks/analyze")
             .then(response => {
-                if (response.ok)
-                    return response.json();
-                throw new Error('Can not load, status: ' + response.status);
+                if (response.ok) return response.json();
+                throw new Error("Can not load, status: " + response.status);
             })
             .then(data => {
                 this.setState({
                     result: data.result,
-                    loaded: true,
+                    loaded: true
                 });
             })
             .catch(error => {
                 this.setState({
                     error: error,
-                    loaded: true,
+                    loaded: true
                 });
             });
     }
 
     render() {
-        let content = '';
+        let content = "";
 
         if (this.state.loaded) {
             if (this.state.error) {
-                content = <div className='alert alert-danger'>{this.state.error.message}</div>;
-            }
-            else {
+                content = (
+                    <div className="alert alert-danger">
+                        {this.state.error.message}
+                    </div>
+                );
+            } else {
                 const result = this.state.result;
                 let analyzeCardItems = [
                     {
-                        title: 'Закрыто',
+                        title: "Закрыто",
                         value: result.sumEstimateTime,
-                        unit: 'ч',
-                        icon: 'fas fa-bolt',
-                        tip: result.potentialEstimateTime == result.sumEstimateTime ? '' :
-                            `потенциально ${result.potentialEstimateTime} ч`,
+                        unit: "ч",
+                        icon: "fas fa-bolt",
+                        tip:
+                            result.potentialEstimateTime ==
+                            result.sumEstimateTime
+                                ? ""
+                                : `потенциально ${
+                                      result.potentialEstimateTime
+                                  } ч`
                     },
                     {
-                        title: 'Затрачено',
+                        title: "Затрачено",
                         value: result.sumActualTime,
-                        unit: ' ч',
-                        icon: 'fas fa-clock',
-                        tip: '',
+                        unit: " ч",
+                        icon: "fas fa-clock",
+                        tip: ""
                     },
                     {
-                        title: 'Коэффициент',
+                        title: "Коэффициент",
                         value: result.koeff,
-                        unit: '',
-                        icon: 'fas fa-asterisk',
-                        tip: '',
-                    },
+                        unit: "",
+                        icon: "fas fa-asterisk",
+                        tip: ""
+                    }
                 ];
 
-                const analyzeCardItemsRendered = analyzeCardItems.map((item, index) =>
-                    <div className="col analyze-item" key={index}>
-                        <div className="row no-gutters">
-                            <div className="col-3 icon"><i className={item.icon + ' fa-2x'}/></div>
-                            <div className="col">
-                                <span className="title">{item.title}</span>
-                                <span className="value">{item.value}</span>
-                                <span className="unit"> {item.unit}</span>
-                                <span className="tip">{item.tip}</span>
+                const analyzeCardItemsRendered = analyzeCardItems.map(
+                    (item, index) => (
+                        <div className="col analyze-item" key={index}>
+                            <div className="row no-gutters">
+                                <div className="col-3 icon">
+                                    <i className={item.icon + " fa-2x"} />
+                                </div>
+                                <div className="col">
+                                    <span className="title">{item.title}</span>
+                                    <span className="value">{item.value}</span>
+                                    <span className="unit"> {item.unit}</span>
+                                    <span className="tip">{item.tip}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>);
+                    )
+                );
 
-                content = <div className="analyze-container">
-                    <div className="row">
-                        {analyzeCardItemsRendered}
+                content = (
+                    <div className="analyze-container">
+                        <div className="row">{analyzeCardItemsRendered}</div>
                     </div>
-                </div>;
+                );
             }
-        }
-        else {
-            content = <div className='alert alert-info loading'>Анализируем продуктивность...</div>;
+        } else {
+            content = (
+                <div className="alert alert-info loading">
+                    Анализируем продуктивность...
+                </div>
+            );
         }
 
-        return (
-            <div className="list-group">
-                {content}
-            </div>
-        );
+        return <div className="list-group">{content}</div>;
     }
 }
