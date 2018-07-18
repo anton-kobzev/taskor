@@ -6,8 +6,8 @@ const linkify = linkifyIt();
 linkify.tlds(tlds);
 
 export default class AddTask extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             newTask: {
                 name: ""

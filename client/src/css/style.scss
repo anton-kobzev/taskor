@@ -13,6 +13,29 @@ input {
     outline: none !important;
 }
 
+.btn {
+    .icon {
+        margin-right: .4em;
+    }
+}
+
+.link-secondary {
+    color: #6b6b6b;
+    &:hover {
+        color: #545454;
+    }
+}
+
+.invisible-animated {
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+.visible-animated {
+    opacity: 1;
+    transition: opacity .5s;
+}
+
 .list-group-item {
     margin-bottom: 0;
     border-top: none;
@@ -27,11 +50,26 @@ input {
 
 .navbar {
     padding-left: 2rem;
+    margin-bottom: 65px;
+    height: 90px;
+}
+
+.nav-link {
+    .icon {
+        margin-top: -3px;
+    }
+}
+
+.sidebar {
+    padding-left: 10px;
+    .nav-link {
+        @extend .link-secondary;
+    }
 }
 
 .tasks-filter {
     .search-input-group {
-        width: 30rem;
+        width: 20rem;
         $tasks-filter-input-color: lighten($primary, 50%);
         $tasks-filter-input-color-dark: lighten($primary, 20%);
         font-family: $font-family-monospace;
@@ -62,16 +100,17 @@ input {
 }
 
 .task-list-container {
-    background-color: $list-group-bg;
-    border: $list-group-border-width solid $list-group-border-color;
-    border-top: none;
-
     .list-group-item {
-        border: none;
-        border-top: $list-group-border-width solid $list-group-border-color;
+        border: $list-group-border-width solid $list-group-border-color;
+        &:not(:last-child) {
+            border-bottom: none;
+        }
     }
 
     .panel {
+        margin-top: -65px;
+        height: 65px;
+
         .icon {
             margin-right: 0.4em;
             position: relative;
@@ -125,6 +164,7 @@ input {
 
 .task {
     padding: 0.5rem 0.7rem 0.5rem 2rem;
+    min-height: 65px;
     transition: $transition-base;
     transition-duration: .1s;
 
@@ -160,7 +200,7 @@ input {
             content: "";
             display: block;
             position: absolute;
-            top: 50%;
+            top: 45%;
             left: 0;
             width: 0;
             height: 1px;
@@ -354,7 +394,9 @@ input {
 
 // Analyze
 .analyze-container {
-    background-color: #fff;
+    background: #fff;
+    border: $list-group-border-width solid $list-group-border-color;
+    padding: 0 2em;
 
     .level {
         text-align: center;

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 const ReactDOM = require("react-dom");
 
-import * as AppInfo from "../utils/AppInfo";
-
 import NavBar from "./NavBar";
-import TasksList from "./TasksList";
+import SideBar from "./SideBar";
+import TasksList from "./tasks/TasksList";
 import Analyze from "./Analyze";
 
 class AppShell extends Component {
@@ -32,16 +31,20 @@ class AppShell extends Component {
 
     render() {
         return (
-            <div className="container pt-5">
+            <div>
                 <NavBar onFilterChange={this.handleFilterChange} />
-                {document.location.search == "?analyze" ? (
-                    <Analyze />
-                ) : (
-                    <TasksList filter={this.state.filter} />
-                )}
-                <div className="row float-left footer">
-                    <div className="col app-info">
-                        {AppInfo.APP_NAME} v{AppInfo.APP_VERSION}
+                <div className="container">
+                    <div className="row">
+                        <div className="col-2">
+                            <SideBar />
+                        </div>
+                        <div className="col-10">
+                            {document.location.search == "?analyze" ? (
+                                <Analyze />
+                            ) : (
+                                <TasksList filter={this.state.filter} />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

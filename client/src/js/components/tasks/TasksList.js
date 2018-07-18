@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Helpers from "./Helpers";
+import Helpers from "../Helpers";
 import Task from "./Task";
 import AddTask from "./AddTask";
 
@@ -13,7 +13,13 @@ export default class TasksList extends Component {
                 tasksDisplayedIds: []
             },
             loaded: false,
-            progress: null
+            progress: {
+                running: false,
+                paused: false,
+                timerSeconds: 0,
+                timerId: 0,
+                task: null
+            }
         };
     }
 
@@ -138,7 +144,8 @@ export default class TasksList extends Component {
     handleDeleteTask = task => {
         fetch("/api/tasks/" + task.id, { method: "delete" }).then(() => {
             this.removeTaskFromList(task);
-            if (this.state.progress.task.id == task.id) this.stopTimer();
+            if (this.state.progress && this.state.progress.task.id == task.id)
+                this.stopTimer();
         });
     };
 
@@ -161,10 +168,11 @@ export default class TasksList extends Component {
     startTimer = task => {
         this.stopTimer(); // Stop previous task
         const progress = {
+            running: true,
+            paused: false,
             timerSeconds: task.actualTime * 3600,
             timerId: 0,
-            task: task,
-            paused: false
+            task: task
         };
         progress.timerId = setInterval(() => {
             if (!this.state.progress.paused) {
@@ -202,7 +210,7 @@ export default class TasksList extends Component {
     };
 
     stopTimer = () => {
-        if (this.state.progress) {
+        if (this.state.progress.running) {
             clearInterval(this.state.progress.timerId);
             this.updateTask({
                 id: this.state.progress.task.id,
@@ -210,7 +218,10 @@ export default class TasksList extends Component {
                     Math.round((this.state.progress.timerSeconds / 3600) * 10) /
                     10
             });
-            this.setState({ progress: null });
+            this.setState(prevState => {
+                prevState.progress.running = false;
+                return prevState;
+            });
         }
     };
 
@@ -238,7 +249,7 @@ export default class TasksList extends Component {
                             task={task}
                             key={task.id}
                             inProgress={
-                                this.state.progress &&
+                                this.state.progress.running &&
                                 this.state.progress.task.id == task.id
                             }
                             onEdit={this.handleEditTask}
@@ -262,50 +273,46 @@ export default class TasksList extends Component {
     }
 
     render() {
-        const timerPanel = this.state.progress && (
-            <div className="row panel">
-                <div className="col">
-                    <div
-                        className={
-                            "timer" +
-                            (this.state.progress.paused ? " paused" : "")
-                        }
+        const timerPanel = (
+            <div
+                className={
+                    "col " +
+                    (this.state.progress.running
+                        ? "visible-animated"
+                        : "invisible-animated")
+                }
+            >
+                <div className={"timer" + (this.state.progress.paused ? " paused" : "")}>
+                    <span className="text">В работе: </span>
+                    <span className="task-name">
+                        {this.state.progress.task &&
+                            this.state.tasks.find(
+                                task => task.id == this.state.progress.task.id
+                            ).name}
+                    </span>
+                    <i className="far fa-clock icon" />
+                    <span className="time">
+                        {Helpers.secondsToHms(this.state.progress.timerSeconds)}
+                    </span>
+                    <span
+                        className="icon-button timer-button-pause"
+                        onClick={this.togglePauseTimer}
                     >
-                        <span className="text">В работе: </span>
-                        <span className="task-name">
-                            {
-                                this.state.tasks.find(
-                                    task =>
-                                        task.id == this.state.progress.task.id
-                                ).name
-                            }
-                        </span>
-                        <i className="far fa-clock icon" />
-                        <span className="time">
-                            {Helpers.secondsToHms(
-                                this.state.progress.timerSeconds
-                            )}
-                        </span>
-                        <span
-                            className="icon-button timer-button-pause"
-                            onClick={this.togglePauseTimer}
-                        >
-                            <i className="fas fa-pause icon" />
-                        </span>
-                        <span
-                            className="icon-button timer-button-stop"
-                            onClick={this.stopTimer}
-                        >
-                            <i className="fas fa-square icon" />
-                        </span>
-                    </div>
+                        <i className="fas fa-pause icon" />
+                    </span>
+                    <span
+                        className="icon-button timer-button-stop"
+                        onClick={this.stopTimer}
+                    >
+                        <i className="fas fa-square icon" />
+                    </span>
                 </div>
             </div>
         );
 
         return (
             <div className="task-list-container">
-                {timerPanel}
+                <div className="row panel">{timerPanel}</div>
                 <div className="row task-list">
                     <div className="col">{this.renderTasks()}</div>
                 </div>

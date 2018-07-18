@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import linkifyIt from "linkify-it";
 import tlds from "tlds";
 import EditTask from "./EditTask";
-import ReactModal from "react-modal";
 
 const linkify = linkifyIt();
 linkify.tlds(tlds);
@@ -12,26 +11,18 @@ export default class Task extends Component {
         super(props);
 
         this.state = {
-            showDeleteConfirmModal: false
+            deleteTaskConfirmOpened: false
         };
-
-        this.handleEditTask = this.handleEditTask.bind(this);
-        this.handleEditTaskClick = this.handleEditTaskClick.bind(this);
-        this.handleDeleteTask = this.handleDeleteTask.bind(this);
-        this.handleDoneTask = this.handleDoneTask.bind(this);
-        this.handleNotDoneTask = this.handleNotDoneTask.bind(this);
-        this.handleArchiveTask = this.handleArchiveTask.bind(this);
-        this.handleTimerStart = this.handleTimerStart.bind(this);
     }
 
-    handleEditTask(task) {
+    handleEditTask = task => {
         document
             .getElementById("task-" + task.id)
             .classList.remove("active-task");
         this.props.onEdit(task);
-    }
+    };
 
-    handleEditTaskClick(e) {
+    handleEditTaskClick = e => {
         if (
             e.target.classList.contains("task-inner") ||
             e.target.classList.contains("task-name") ||
@@ -53,27 +44,27 @@ export default class Task extends Component {
                     o.style.height = 23 + o.scrollHeight + "px";
                 });
         }
-    }
+    };
 
-    handleDeleteTask() {
-        this.setState({ showDeleteConfirmModal: true });
-    }
+    handleDeleteTask = () => {
+        this.setState({ deleteTaskConfirmOpened: true });
+    };
 
-    handleDoneTask() {
+    handleDoneTask = () => {
         this.props.onDone(this.props.task);
-    }
+    };
 
-    handleNotDoneTask() {
+    handleNotDoneTask = () => {
         this.props.onNotDone(this.props.task);
-    }
+    };
 
-    handleArchiveTask() {
+    handleArchiveTask = () => {
         this.props.onArchive(this.props.task);
-    }
+    };
 
-    handleTimerStart() {
+    handleTimerStart = () => {
         this.props.onTimerStart(this.props.task);
-    }
+    };
 
     render() {
         let task = this.props.task;
@@ -129,25 +120,40 @@ export default class Task extends Component {
                                         className="btn btn-outline-primary btn-sm"
                                         disabled
                                     >
-                                        <i className="far fa-clock" /> В работе
+                                        <i className="far fa-clock icon" /> В
+                                        работе
                                     </button>
                                 ) : (
                                     <button
                                         className="btn btn-outline-primary btn-sm"
                                         onClick={this.handleTimerStart}
                                     >
-                                        <i className="far fa-clock" /> Начать
-                                        работу
+                                        <i className="far fa-clock icon" />
+                                        Начать работу
                                     </button>
                                 )}
-                                <a
-                                    href="javascript:"
-                                    title="Удалить"
-                                    className="action action-icon"
-                                    onClick={this.handleDeleteTask}
-                                >
-                                    <i className="fas fa-trash" />
-                                </a>
+
+                                {this.state.deleteTaskConfirmOpened && (
+                                    <button
+                                        className="btn btn-danger btn-sm btn-collapse"
+                                        onClick={() => {
+                                            this.props.onDelete(task);
+                                        }}
+                                    >
+                                        <i className="fas fa-trash icon" />
+                                        Удалить
+                                    </button>
+                                )}
+                                {!this.state.deleteTaskConfirmOpened && (
+                                    <a
+                                        href="#"
+                                        title="Удалить"
+                                        className="action action-icon"
+                                        onClick={this.handleDeleteTask}
+                                    >
+                                        <i className="fas fa-trash" />
+                                    </a>
+                                )}
                             </div>
                             {task.estimateTime > 0 && (
                                 <div className="task-time task-estimate-time">
@@ -178,41 +184,6 @@ export default class Task extends Component {
                     onEdit={this.handleEditTask}
                     onDelete={this.handleDeleteTask}
                 />
-
-                <ReactModal
-                    isOpen={this.state.showDeleteConfirmModal}
-                    ariaHideApp={false}
-                >
-                    <div className="modal-title">
-                        Вы уверены, что хотите удалить "{task.name}"?
-                    </div>
-                    <div className="modal-buttons">
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => this.props.onDelete(task)}
-                            autoFocus
-                        >
-                            Да
-                        </button>
-                        <button
-                            className="btn btn-outline-secondary ml-1"
-                            onClick={() =>
-                                this.setState({ showDeleteConfirmModal: false })
-                            }
-                        >
-                            Нет
-                        </button>
-                    </div>
-                    <a
-                        href="#"
-                        className="modal-close"
-                        onClick={() =>
-                            this.setState({ showDeleteConfirmModal: false })
-                        }
-                    >
-                        <i className="far fa-times-circle" />
-                    </a>
-                </ReactModal>
             </div>
         );
     }
@@ -236,11 +207,9 @@ export default class Task extends Component {
                 for (let i = 0; i < matches.length; i++) {
                     desc = desc.replace(
                         matches[i].raw,
-                        '<a href="' +
-                            matches[i].url +
-                            '" target="_blank">' +
-                            matches[i].raw +
-                            "</a>"
+                        `<a href="${matches[i].url}" target="_blank">${
+                            matches[i].raw
+                        }</a>`
                     );
                 }
             }
