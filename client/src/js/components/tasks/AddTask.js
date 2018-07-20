@@ -38,7 +38,7 @@ export default class AddTask extends Component {
 
     render() {
         return (
-            <div className="add-task-container">
+            <div className="add-task-container d-flex justify-content-end">
                 <button
                     className="btn btn-link add-task-button"
                     onClick={() => {
@@ -82,17 +82,18 @@ export default class AddTask extends Component {
                         <input
                             type="text"
                             onChange={e => this.handleInput("name", e)}
-                            className="form-control add-task-name-input"
-                            placeholder="Название"
+                            className="form-control add-task-name-input material-input"
+                            placeholder="Введите название"
                             value={this.state.newTask.name}
                             required
                         />
                     </div>
-                    <input
+                    <button
                         type="submit"
                         className="btn btn-primary add-task-submit-button"
-                        value="Добавить"
-                    />
+                    >
+                        <i className="fas fa-plus mr-1" /> Добавить
+                    </button>
                 </form>
             </div>
         );

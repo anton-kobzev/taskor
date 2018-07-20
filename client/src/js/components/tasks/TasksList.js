@@ -144,7 +144,10 @@ export default class TasksList extends Component {
     handleDeleteTask = task => {
         fetch("/api/tasks/" + task.id, { method: "delete" }).then(() => {
             this.removeTaskFromList(task);
-            if (this.state.progress && this.state.progress.task.id == task.id)
+            if (
+                this.state.progress.running &&
+                this.state.progress.task.id == task.id
+            )
                 this.stopTimer();
         });
     };
@@ -236,36 +239,40 @@ export default class TasksList extends Component {
                     </div>
                 );
             } else {
-                content = this.state.tasks
-                    .filter(
-                        task =>
-                            !this.state.filter.active ||
-                            this.state.filter.tasksDisplayedIds.includes(
-                                task.id
-                            )
-                    )
-                    .map(task => (
-                        <Task
-                            task={task}
-                            key={task.id}
-                            inProgress={
-                                this.state.progress.running &&
-                                this.state.progress.task.id == task.id
-                            }
-                            onEdit={this.handleEditTask}
-                            onDelete={this.handleDeleteTask}
-                            onDone={this.handleDoneTask}
-                            onNotDone={this.handleUnDoneTask}
-                            onArchive={this.handleArchiveTask}
-                            onTimerStart={this.startTimer}
-                        />
-                    ));
+                if (this.state.tasks.length == 0) {
+                    content = (
+                        <div className="alert alert-info">Задач пока нет</div>
+                    );
+                } else {
+                    content = this.state.tasks
+                        .filter(
+                            task =>
+                                !this.state.filter.active ||
+                                this.state.filter.tasksDisplayedIds.includes(
+                                    task.id
+                                )
+                        )
+                        .map(task => (
+                            <Task
+                                task={task}
+                                key={task.id}
+                                inProgress={
+                                    this.state.progress.running &&
+                                    this.state.progress.task.id == task.id
+                                }
+                                onEdit={this.handleEditTask}
+                                onDelete={this.handleDeleteTask}
+                                onDone={this.handleDoneTask}
+                                onNotDone={this.handleUnDoneTask}
+                                onArchive={this.handleArchiveTask}
+                                onTimerStart={this.startTimer}
+                            />
+                        ));
+                }
             }
         } else {
             content = (
-                <div className="alert alert-info loading">
-                    Загрузка списка задач...
-                </div>
+                <div className="alert alert-info">Загрузка списка задач...</div>
             );
         }
 
@@ -273,6 +280,9 @@ export default class TasksList extends Component {
     }
 
     render() {
+        const taskInProgress = this.state.progress.task && this.state.tasks.find(
+            task => task.id == this.state.progress.task.id
+        );
         const timerPanel = (
             <div
                 className={
@@ -282,14 +292,13 @@ export default class TasksList extends Component {
                         : "invisible-animated")
                 }
             >
-                <div className={"timer" + (this.state.progress.paused ? " paused" : "")}>
+                <div
+                    className={
+                        "timer" + (this.state.progress.paused ? " paused" : "")
+                    }
+                >
                     <span className="text">В работе: </span>
-                    <span className="task-name">
-                        {this.state.progress.task &&
-                            this.state.tasks.find(
-                                task => task.id == this.state.progress.task.id
-                            ).name}
-                    </span>
+                    <span className="task-name">{taskInProgress && taskInProgress.name}</span>
                     <i className="far fa-clock icon" />
                     <span className="time">
                         {Helpers.secondsToHms(this.state.progress.timerSeconds)}
@@ -316,7 +325,7 @@ export default class TasksList extends Component {
                 <div className="row task-list">
                     <div className="col">{this.renderTasks()}</div>
                 </div>
-                <div className="row float-right">
+                <div className="row">
                     <div className="col">
                         <AddTask onAdd={this.handleAddTask} />
                     </div>
