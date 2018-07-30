@@ -120,7 +120,7 @@ export default class Task extends Component {
                                         className="btn btn-outline-primary btn-sm"
                                         disabled
                                     >
-                                        <i className="far fa-clock icon" /> В
+                                        <i className="fas fa-award icon" /> В
                                         работе
                                     </button>
                                 ) : (
@@ -146,7 +146,7 @@ export default class Task extends Component {
                                 )}
                                 {!this.state.deleteTaskConfirmOpened && (
                                     <a
-                                        href="#"
+                                        href="javascript:;"
                                         title="Удалить"
                                         className="action action-icon"
                                         onClick={this.handleDeleteTask}
@@ -155,10 +155,10 @@ export default class Task extends Component {
                                     </a>
                                 )}
                             </div>
-                            {task.estimateTime > 0 && (
-                                <div className="task-time task-estimate-time">
-                                    <i className="far fa-clock task-data-icon task-estimate-time-icon" />{" "}
-                                    оценка {task.estimateTime}
+                            {task.price > 0 && (
+                                <div className="task-data task-price">
+                                    <i className="fas fa-award task-data-icon task-price-icon" />{" "}
+                                    цена {task.price}
                                 </div>
                             )}
                         </div>
@@ -170,10 +170,10 @@ export default class Task extends Component {
                                 __html: Task.renderDescription(task.description)
                             }}
                         />
-                        {task.actualTime > 0 && (
-                            <div className="task-time task-actual-time">
-                                <i className="far fa-check-circle task-data-icon task-actual-time-icon" />{" "}
-                                ушло {task.actualTime}
+                        {task.time > 0 && (
+                            <div className="task-data task-time">
+                                <i className="far fa-clock task-data-icon task-time-icon" />{" "}
+                                ушло {task.time}
                             </div>
                         )}
                     </div>
@@ -182,7 +182,6 @@ export default class Task extends Component {
                 <EditTask
                     task={task}
                     onEdit={this.handleEditTask}
-                    onDelete={this.handleDeleteTask}
                 />
             </div>
         );

@@ -25,11 +25,11 @@
         "createdAt": {
             "type": "date"
         },
-        "estimateTime": {
+        "price": {
             "type": "number",
             "default": 0
         },
-        "actualTime": {
+        "time": {
             "type": "number",
             "default": 0
         }

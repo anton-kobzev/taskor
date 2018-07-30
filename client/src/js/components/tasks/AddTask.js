@@ -9,90 +9,48 @@ export default class AddTask extends Component {
     constructor() {
         super();
         this.state = {
-            newTask: {
-                name: ""
-            }
+            name: ""
         };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInput = this.handleInput.bind(this);
     }
 
-    handleInput(key, e) {
-        let state = Object.assign({}, this.state.newTask);
-        state[key] = e.target.value;
-        this.setState({ newTask: state });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.onAdd(this.state.newTask);
-        this.setState({
-            newTask: {
-                name: ""
-            }
+    handleInput = (key, e) => {
+        const value = e.target.value;
+        this.setState(prevState => {
+            prevState[key] = value;
+            return prevState;
         });
-        document.querySelector(".add-task-button").style.display = "block";
-        document.querySelector(".add-task-form").style.display = "none";
-    }
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.onAdd(this.state);
+        this.setState({
+            name: ""
+        });
+    };
 
     render() {
         return (
             <div className="add-task-container d-flex justify-content-end">
-                <button
-                    className="btn btn-link add-task-button"
-                    onClick={() => {
-                        document.querySelector(
-                            ".add-task-button"
-                        ).style.display =
-                            "none";
-                        document.querySelector(".add-task-form").style.display =
-                            "flex";
-                        document.querySelector(".add-task-name-input").focus();
-                        document.addEventListener("mouseup", e => {
-                            if (
-                                !e.target.classList.contains(
-                                    "add-task-name-input"
-                                ) &&
-                                !e.target.classList.contains(
-                                    "add-task-submit-button"
-                                )
-                            ) {
-                                document.querySelector(
-                                    ".add-task-button"
-                                ).style.display =
-                                    "block";
-                                document.querySelector(
-                                    ".add-task-form"
-                                ).style.display =
-                                    "none";
-                            }
-                        });
-                    }}
-                >
-                    <i className="fas fa-plus mr-1" />
-                    Новая задача
-                </button>
                 <form
                     onSubmit={this.handleSubmit}
                     className="form-inline justify-content-start add-task-form mt-2"
-                    style={{ display: "none" }}
                 >
                     <div className="input-group mr-2">
                         <input
                             type="text"
                             onChange={e => this.handleInput("name", e)}
-                            className="form-control add-task-name-input material-input"
-                            placeholder="Введите название"
-                            value={this.state.newTask.name}
+                            className="form-control add-task-name-input"
+                            placeholder="Что надо сделать?"
+                            value={this.state.name}
                             required
                         />
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-primary add-task-submit-button"
+                        className="btn btn-outline-secondary add-task-submit-button"
                     >
-                        <i className="fas fa-plus mr-1" /> Добавить
+                        <i className="fas fa-plus icon"/> Добавить
                     </button>
                 </form>
             </div>

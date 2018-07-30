@@ -12,10 +12,10 @@ export default class EditTask extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.task.actualTime !== this.state.task.actualTime)
+        if (nextProps.task.time !== this.state.task.time)
             this.setState(prevState => {
                 const task = prevState.task;
-                task.actualTime = nextProps.task.actualTime;
+                task.time = nextProps.task.time;
                 return { task };
             });
     }
@@ -73,51 +73,38 @@ export default class EditTask extends Component {
                             />
                         </div>
                         <div className="task-actions d-flex align-items-center">
-                            <i className="far fa-clock task-estimate-time-icon" />
+                            <i className="fas fa-award task-price-icon" />
                             <input
                                 type="text"
-                                className="task-small-input task-estimate-time-input"
-                                placeholder="оценка"
-                                onChange={e =>
-                                    this.handleInput("estimateTime", e)
-                                }
+                                className="form-control task-small-input"
+                                placeholder="цена"
+                                onChange={e => this.handleInput("price", e)}
                                 value={
-                                    this.state.task.estimateTime > 0
-                                        ? this.state.task.estimateTime
+                                    this.state.task.price > 0
+                                        ? this.state.task.price
                                         : ""
                                 }
                             />
 
-                            <i className="far fa-check-circle task-actual-time-icon" />
+                            <i className="far fa-clock task-time-icon" />
                             <input
                                 type="text"
-                                className="task-small-input task-actual-time-input"
+                                className="form-control task-small-input"
                                 placeholder="ушло"
-                                onChange={e =>
-                                    this.handleInput("actualTime", e)
-                                }
+                                onChange={e => this.handleInput("time", e)}
                                 value={
-                                    this.state.task.actualTime > 0
-                                        ? this.state.task.actualTime
+                                    this.state.task.time > 0
+                                        ? this.state.task.time
                                         : ""
                                 }
                             />
 
-                            <a
-                                href="javascript:"
-                                title="Удалить"
-                                className="action action-icon"
-                                onClick={() => {
-                                    this.props.onDelete(this.state.task);
-                                }}
-                            >
-                                <i className="fas fa-trash" />
-                            </a>
-                            <input
+                            <button
                                 type="submit"
                                 className="btn btn-primary action action-button"
-                                value="Сохранить"
-                            />
+                            >
+                                <i className="fas fa-check icon"/> Сохранить
+                            </button>
                         </div>
                     </div>
                 </form>

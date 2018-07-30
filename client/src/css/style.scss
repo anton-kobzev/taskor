@@ -1,34 +1,10 @@
-// Fonts
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
-// Variables
 @import "vars";
-// Bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "common";
 
 body {
     padding-bottom: 15em;
-}
-
-input {
-    outline: none !important;
-}
-
-.material-input {
-    padding: 0.2rem;
-    background: none;
-    border: none;
-    border-bottom: 2px solid #d8d8d8;
-
-    &:focus {
-        border-bottom: 2px solid #6f6f6f;
-        background: none;
-    }
-}
-
-.btn {
-    .icon {
-        margin-right: .4em;
-    }
 }
 
 .link-secondary {
@@ -57,7 +33,7 @@ input {
 .navbar {
     padding-left: 2rem;
     margin-bottom: 65px;
-    height: 80px;
+    height: 70px;
 }
 
 .nav-link {
@@ -74,7 +50,7 @@ input {
 }
 
 .tasks-filter {
-    .search-input-group {
+    .search {
         width: 20rem;
         $tasks-filter-input-color: lighten($primary, 50%);
         $tasks-filter-input-color-dark: lighten($primary, 20%);
@@ -91,15 +67,15 @@ input {
                 color: $tasks-filter-input-color-dark;
             }
         }
-        .input-group-prepend {
+        .search-icon-container {
             position: absolute;
             left: 13px;
-            top: 14px;
+            top: 10px;
             z-index: 4;
             color: $tasks-filter-input-color-dark;
             transition: color .1s;
         }
-        &:focus-within .input-group-prepend {
+        &:focus-within .search-icon-container {
             color: $tasks-filter-input-color;
         }
     }
@@ -228,12 +204,12 @@ input {
         opacity: 0.6;
     }
 
-    .task-time {
+    .task-data {
         margin-left: 0.6rem;
         font-size: 14px;
         color: #444;
 
-        &.task-estimate-time {
+        &.task-price {
             margin-top: 0.2rem;
         }
     }
@@ -242,16 +218,21 @@ input {
         margin-right: 0.1rem;
     }
 
-    .task-estimate-time-icon {
+    .task-price-icon {
         color: $primary;
     }
 
-    .task-actual-time-icon {
+    .task-time-icon {
         color: $success;
     }
 
-    .task-inner-top {
-        height: 29px;
+    .task-inner {
+        min-height: 18px;
+        cursor: pointer;
+
+        &.task-inner-top {
+            height: 29px;
+        }
     }
 
     .task-actions,
@@ -288,7 +269,6 @@ input {
     }
 
     &:hover {
-        cursor: pointer;
         background-color: #f1f1f1;
 
         .task-actions {
@@ -312,7 +292,7 @@ input {
 
             input[type="text"],
             textarea {
-                @extend .material-input;
+                background: transparent;
             }
         }
 
@@ -327,8 +307,9 @@ input {
 
         .task-small-input {
             width: 3.6rem;
-            margin-right: 0.5rem;
-            margin-left: 0.1rem;
+            margin-right: 0.9rem;
+            margin-left: 0.6rem;
+            padding: 0.3em;
             text-align: center;
         }
 

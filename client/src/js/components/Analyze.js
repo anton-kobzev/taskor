@@ -44,20 +44,20 @@ export default class Analyze extends Component {
                 let analyzeCardItems = [
                     {
                         title: "Закрыто",
-                        value: result.sumEstimateTime,
-                        unit: "ч",
+                        value: result.sumPrice,
+                        unit: "",
                         icon: "fas fa-bolt",
                         tip:
-                            result.potentialEstimateTime ==
-                            result.sumEstimateTime
+                            result.potentialPrice ==
+                            result.sumPrice
                                 ? ""
                                 : `потенциально ${
-                                      result.potentialEstimateTime
-                                  } ч`
+                                      result.potentialPrice
+                                  }`
                     },
                     {
-                        title: "Затрачено",
-                        value: result.sumActualTime,
+                        title: "Время",
+                        value: result.sumTime,
                         unit: " ч",
                         icon: "fas fa-clock",
                         tip: ""

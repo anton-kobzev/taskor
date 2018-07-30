@@ -10,32 +10,32 @@ module.exports = function(Task) {
      */
     Task.analyze = function(callback) {
         Task.find({ where: { archive: false } }, (err, tasks) => {
-            let sumEstimateTime = 0,
-                sumActualTime = 0,
+            let sumPrice = 0,
+                sumTime = 0,
                 doneTasksCount = 0,
-                potentialEstimateTime = 0;
+                potentialPrice = 0;
             for (let task of tasks) {
                 if (task.done) {
-                    sumEstimateTime += task.estimateTime;
-                    sumActualTime += task.actualTime;
+                    sumPrice += task.price;
+                    sumTime += task.time;
                     doneTasksCount++;
                 } else {
-                    potentialEstimateTime += task.estimateTime
-                        ? task.estimateTime
-                        : task.actualTime * 2;
+                    potentialPrice += task.price
+                        ? task.price
+                        : task.time * 2;
                 }
             }
 
-            sumActualTime = roundTwoDigits(sumActualTime);
-            sumEstimateTime = roundTwoDigits(sumEstimateTime);
+            sumTime = roundTwoDigits(sumTime);
+            sumPrice = roundTwoDigits(sumPrice);
 
             let result = {
-                sumEstimateTime: sumEstimateTime,
-                potentialEstimateTime: roundTwoDigits(
-                    sumEstimateTime + potentialEstimateTime
+                sumPrice,
+                potentialPrice: roundTwoDigits(
+                    sumPrice + potentialPrice
                 ),
-                sumActualTime: sumActualTime,
-                koeff: roundTwoDigits(sumEstimateTime / sumActualTime) || 0
+                sumTime,
+                koeff: roundTwoDigits(sumPrice / sumTime) || 0
             };
 
             callback(null, result);

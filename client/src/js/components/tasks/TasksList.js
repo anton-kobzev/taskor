@@ -34,23 +34,31 @@ export default class TasksList extends Component {
                 this.fetchTaskList(filterQuery);
             } else {
                 this.setState((prevState, props) => {
-                    const tasksDisplayedIds = prevState.tasks
-                        .filter(
-                            task =>
-                                props.filter.where.name == "" ||
-                                task.name
-                                    .toLowerCase()
-                                    .includes(
-                                        props.filter.where.name.toLowerCase()
-                                    )
-                        )
-                        .map(task => task.id);
-                    return {
-                        filter: {
-                            active: true,
-                            tasksDisplayedIds: tasksDisplayedIds
-                        }
-                    };
+                    if (props.filter.where.name) {
+                        const tasksDisplayedIds = prevState.tasks
+                            .filter(
+                                task =>
+                                    props.filter.where.name == "" ||
+                                    task.name
+                                        .toLowerCase()
+                                        .includes(
+                                            props.filter.where.name.toLowerCase()
+                                        )
+                            )
+                            .map(task => task.id);
+                        return {
+                            filter: {
+                                active: true,
+                                tasksDisplayedIds: tasksDisplayedIds
+                            }
+                        };
+                    } else {
+                        return {
+                            filter: {
+                                active: false
+                            }
+                        };
+                    }
                 });
                 this.lastFilterQuery = filterQuery;
             }
@@ -90,9 +98,7 @@ export default class TasksList extends Component {
             },
             body: JSON.stringify(task)
         })
-            .then(response => {
-                return response.json();
-            })
+            .then(response => response.json())
             .then(task => {
                 this.updateTaskInList(task);
             });
@@ -108,10 +114,10 @@ export default class TasksList extends Component {
     }
 
     removeTaskFromList(task) {
-        let array = this.state.tasks.filter(function(item) {
-            return item !== task;
+        this.setState(prevState => {
+            const newTasks = prevState.tasks.filter(item => item !== task);
+            return { tasks: newTasks };
         });
-        this.setState({ tasks: array });
     }
 
     handleAddTask = task => {
@@ -123,14 +129,11 @@ export default class TasksList extends Component {
             },
             body: JSON.stringify(task)
         })
-            .then(response => {
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 this.setState(prevState => {
                     const tasks = prevState.tasks.concat(data);
                     return {
-                        tasks: tasks,
                         tasks: tasks
                     };
                 });
@@ -173,7 +176,7 @@ export default class TasksList extends Component {
         const progress = {
             running: true,
             paused: false,
-            timerSeconds: task.actualTime * 3600,
+            timerSeconds: task.time * 3600,
             timerId: 0,
             task: task
         };
@@ -190,7 +193,7 @@ export default class TasksList extends Component {
                             // Sync timer with server
                             this.updateTask({
                                 id: this.state.progress.task.id,
-                                actualTime:
+                                time:
                                     Math.round(
                                         (this.state.progress.timerSeconds /
                                             3600) *
@@ -217,7 +220,7 @@ export default class TasksList extends Component {
             clearInterval(this.state.progress.timerId);
             this.updateTask({
                 id: this.state.progress.task.id,
-                actualTime:
+                time:
                     Math.round((this.state.progress.timerSeconds / 3600) * 10) /
                     10
             });
@@ -280,9 +283,11 @@ export default class TasksList extends Component {
     }
 
     render() {
-        const taskInProgress = this.state.progress.task && this.state.tasks.find(
-            task => task.id == this.state.progress.task.id
-        );
+        const taskInProgress =
+            this.state.progress.task &&
+            this.state.tasks.find(
+                task => task.id == this.state.progress.task.id
+            );
         const timerPanel = (
             <div
                 className={
@@ -298,7 +303,9 @@ export default class TasksList extends Component {
                     }
                 >
                     <span className="text">В работе: </span>
-                    <span className="task-name">{taskInProgress && taskInProgress.name}</span>
+                    <span className="task-name">
+                        {taskInProgress && taskInProgress.name}
+                    </span>
                     <i className="far fa-clock icon" />
                     <span className="time">
                         {Helpers.secondsToHms(this.state.progress.timerSeconds)}

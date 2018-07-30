@@ -34,15 +34,15 @@ export default class TasksFilter extends Component {
         return (
             <form
                 onSubmit={this.handleSubmit}
-                className="form-inline filter tasks-filter"
+                className="filter tasks-filter"
             >
-                <div className="input-group search-input-group">
-                    <div className="input-group-prepend">
+                <div className="search">
+                    <div className="search-icon-container">
                         <i className="fas fa-search" />
                     </div>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control search-input"
                         placeholder="Поиск и фильтр"
                         onChange={e => this.handleInputAndSubmit("name", e)}
                     />
