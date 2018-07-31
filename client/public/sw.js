@@ -94,19 +94,19 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _AppInfo = __webpack_require__(/*! ./utils/AppInfo */ \"./client/src/js/utils/AppInfo.js\");\n\nvar AppInfo = _interopRequireWildcard(_AppInfo);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nvar CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION;\n\nvar APP_SHELL_TO_CACHE = [\"/\", \"js/bundle.js\", \"css/style.css\"];\n\nself.addEventListener(\"install\", function (event) {\n    event.waitUntil(caches.open(CACHE_NAME).then(function (cache) {\n        return cache.addAll(APP_SHELL_TO_CACHE);\n    }));\n});\n\nself.addEventListener(\"activate\", function (event) {\n    event.waitUntil(caches.keys().then(function (cacheNames) {\n        return Promise.all(cacheNames.filter(function (cacheName) {\n            return cacheName.startsWith(APP_NAME) && cacheName != CACHE_NAME;\n        }).map(function (cacheName) {\n            return caches.delete(cacheName);\n        }));\n    }));\n});\n\nself.addEventListener(\"fetch\", function (event) {\n    if (event.request.url.indexOf(\"/api\") != -1) {\n        event.respondWith(fetch(event.request));\n    } else {\n        event.respondWith(caches.open(CACHE_NAME).then(function (cache) {\n            return cache.match(event.request).then(function (response) {\n                return response || fetch(event.request);\n            });\n        }));\n    }\n});\n\n//# sourceURL=webpack:///./client/src/js/sw.js?");
+eval("\n\nvar _appInfo = __webpack_require__(/*! ./utils/appInfo */ \"./client/src/js/utils/appInfo.js\");\n\nvar AppInfo = _interopRequireWildcard(_appInfo);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nvar CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION;\n\nvar APP_SHELL_TO_CACHE = [\"/\", \"js/bundle.js\", \"css/style.css\"];\n\nself.addEventListener(\"install\", function (event) {\n    event.waitUntil(caches.open(CACHE_NAME).then(function (cache) {\n        return cache.addAll(APP_SHELL_TO_CACHE);\n    }));\n});\n\nself.addEventListener(\"activate\", function (event) {\n    event.waitUntil(caches.keys().then(function (cacheNames) {\n        return Promise.all(cacheNames.filter(function (cacheName) {\n            return cacheName.startsWith(APP_NAME) && cacheName != CACHE_NAME;\n        }).map(function (cacheName) {\n            return caches.delete(cacheName);\n        }));\n    }));\n});\n\nself.addEventListener(\"fetch\", function (event) {\n    if (event.request.url.indexOf(\"/api\") != -1) {\n        event.respondWith(fetch(event.request));\n    } else {\n        event.respondWith(caches.open(CACHE_NAME).then(function (cache) {\n            return cache.match(event.request).then(function (response) {\n                return response || fetch(event.request);\n            });\n        }));\n    }\n});\n\n//# sourceURL=webpack:///./client/src/js/sw.js?");
 
 /***/ }),
 
-/***/ "./client/src/js/utils/AppInfo.js":
+/***/ "./client/src/js/utils/appInfo.js":
 /*!****************************************!*\
-  !*** ./client/src/js/utils/AppInfo.js ***!
+  !*** ./client/src/js/utils/appInfo.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar APP_NAME = exports.APP_NAME = \"Taskor\";\nvar APP_VERSION = exports.APP_VERSION = \"1.1\";\n\n//# sourceURL=webpack:///./client/src/js/utils/AppInfo.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar APP_NAME = exports.APP_NAME = \"Taskor\";\nvar APP_VERSION = exports.APP_VERSION = \"1.2\";\n\n//# sourceURL=webpack:///./client/src/js/utils/appInfo.js?");
 
 /***/ })
 
