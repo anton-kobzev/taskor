@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { AnimatedSwitch } from "react-router-transition";
+import { spring, AnimatedSwitch } from "react-router-transition";
 
 import Header from "../header/header";
 import Sidebar from "../sidebar/sidebar";
@@ -36,6 +36,25 @@ class App extends React.Component {
     };
 
     render() {
+        const animatedSwitchMapStyles = styles => ({
+            opacity: styles.opacity,
+            transform: `translateY(${styles.y}px)`
+        });
+        const animatedSwitchTransition = {
+            atEnter: {
+                opacity: 0,
+                y: 10
+            },
+            atLeave: {
+                opacity: 0,
+                y: spring(20)
+            },
+            atActive: {
+                opacity: 1,
+                y: spring(0)
+            }
+        };
+
         return (
             <div>
                 <Header onFilterChange={this.handleFilterChange} />
@@ -47,9 +66,10 @@ class App extends React.Component {
                             </div>
                             <div className="col-10">
                                 <AnimatedSwitch
-                                    atEnter={{ opacity: 0 }}
-                                    atLeave={{ opacity: 0 }}
-                                    atActive={{ opacity: 1 }}
+                                    atEnter={animatedSwitchTransition.atEnter}
+                                    atLeave={animatedSwitchTransition.atLeave}
+                                    atActive={animatedSwitchTransition.atActive}
+                                    mapStyles={animatedSwitchMapStyles}
                                     className="animated-switch-wrapper"
                                 >
                                     <Route

@@ -379,6 +379,27 @@ var App = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var animatedSwitchMapStyles = function animatedSwitchMapStyles(styles) {
+                return {
+                    opacity: styles.opacity,
+                    transform: "translateY(" + styles.y + "px)"
+                };
+            };
+            var animatedSwitchTransition = {
+                atEnter: {
+                    opacity: 0,
+                    y: 10
+                },
+                atLeave: {
+                    opacity: 0,
+                    y: (0, _reactRouterTransition.spring)(20)
+                },
+                atActive: {
+                    opacity: 1,
+                    y: (0, _reactRouterTransition.spring)(0)
+                }
+            };
+
             return _react2.default.createElement(
                 "div",
                 null,
@@ -403,9 +424,10 @@ var App = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactRouterTransition.AnimatedSwitch,
                                     {
-                                        atEnter: { opacity: 0 },
-                                        atLeave: { opacity: 0 },
-                                        atActive: { opacity: 1 },
+                                        atEnter: animatedSwitchTransition.atEnter,
+                                        atLeave: animatedSwitchTransition.atLeave,
+                                        atActive: animatedSwitchTransition.atActive,
+                                        mapStyles: animatedSwitchMapStyles,
                                         className: "animated-switch-wrapper"
                                     },
                                     _react2.default.createElement(_reactRouterDom.Route, {
@@ -2117,7 +2139,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".navbar.sidebar {\n  padding-left: 4px;\n  margin-top: 25px; }\n  .navbar.sidebar .nav-link {\n    padding: 0.5rem 1rem; }\n    .navbar.sidebar .nav-link.active {\n      background: #ececec;\n      border-radius: 0.8em; }\n", "", {"version":3,"sources":["/Users/anton/Documents/Work/taskor/client/src/js/components/common/sidebar/sidebar.scss"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,iBAAiB,EAAE;EACnB;IACE,qBAAqB,EAAE;IACvB;MACE,oBAAoB;MACpB,qBAAqB,EAAE","file":"sidebar.scss","sourcesContent":[".navbar.sidebar {\n  padding-left: 4px;\n  margin-top: 25px; }\n  .navbar.sidebar .nav-link {\n    padding: 0.5rem 1rem; }\n    .navbar.sidebar .nav-link.active {\n      background: #ececec;\n      border-radius: 0.8em; }\n"],"sourceRoot":""}]);
+exports.push([module.i, ".navbar.sidebar {\n  padding-left: 4px;\n  margin-top: 25px; }\n  .navbar.sidebar .nav-link {\n    padding: 0.5rem 1rem; }\n    .navbar.sidebar .nav-link.active {\n      background: #f1f1f1;\n      border-radius: 0.8em; }\n", "", {"version":3,"sources":["/Users/anton/Documents/Work/taskor/client/src/js/components/common/sidebar/sidebar.scss"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,iBAAiB,EAAE;EACnB;IACE,qBAAqB,EAAE;IACvB;MACE,oBAAoB;MACpB,qBAAqB,EAAE","file":"sidebar.scss","sourcesContent":[".navbar.sidebar {\n  padding-left: 4px;\n  margin-top: 25px; }\n  .navbar.sidebar .nav-link {\n    padding: 0.5rem 1rem; }\n    .navbar.sidebar .nav-link.active {\n      background: #f1f1f1;\n      border-radius: 0.8em; }\n"],"sourceRoot":""}]);
 
 // exports
 
