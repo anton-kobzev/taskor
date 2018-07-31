@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React  from "react";
 
-export default class TasksFilter extends Component {
+import "./tasks-filter.scss";
+
+export default class TasksFilter extends React.Component {
     constructor() {
         super();
         this.state = {

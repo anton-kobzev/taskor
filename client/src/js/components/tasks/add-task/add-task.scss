@@ -1,0 +1,17 @@
+.add-task-container {
+    margin-top: 1px;
+    .add-task-name-input {
+        width: 20em;
+    }
+    .add-task-button {
+        padding: 11px 40px;
+        background: #f3f3f3;
+        float: right;
+        border: 5px solid #fafafa;
+
+        &:hover {
+            border-color: #f3f3f3;
+            background: #f3f3f3;
+        }
+    }
+}

@@ -1,0 +1,63 @@
+.task-list-container {
+    .alert {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: lighter;
+        padding: 3rem 2rem;
+    }
+
+    .panel {
+        margin-top: -65px;
+        height: 65px;
+
+        .icon {
+            margin-right: 0.4em;
+            position: relative;
+            bottom: 3px;
+        }
+
+        .text {
+            opacity: 0.6;
+        }
+
+        .icon-button {
+            cursor: pointer;
+            padding: 12px 7px;
+            opacity: 0.9;
+
+            &:hover {
+                opacity: 0.7;
+                transition: opacity 0.4s, color 0.4s;
+            }
+        }
+    }
+
+    .timer {
+        padding: 1em;
+        text-align: center;
+        font-size: 1.1em;
+
+        .task-name {
+            margin-right: 0.7em;
+        }
+
+        .time {
+            font-size: 1.3em;
+            font-weight: lighter;
+            display: inline-block;
+            width: 87px;
+            text-align: left;
+        }
+
+        &.paused {
+            .timer-button-pause {
+                opacity: 1;
+            }
+
+            .time,
+            .icon:not(.fa-square) {
+                color: $primary;
+            }
+        }
+    }
+}

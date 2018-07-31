@@ -1,5 +1,4 @@
 import * as AppInfo from "./utils/AppInfo";
-import { APP_NAME } from "./utils/AppInfo";
 
 const CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION;
 

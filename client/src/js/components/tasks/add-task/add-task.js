@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import linkifyIt from "linkify-it";
 import tlds from "tlds";
+
+import "./add-task.scss";
 
 const linkify = linkifyIt();
 linkify.tlds(tlds);
 
-export default class AddTask extends Component {
+export default class AddTask extends React.Component {
     constructor() {
         super();
         this.state = {

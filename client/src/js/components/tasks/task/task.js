@@ -1,14 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import linkifyIt from "linkify-it";
 import tlds from "tlds";
-import EditTask from "./EditTask";
+import EditTask from "../edit-task/edit-task";
+
+import "./task.scss";
 
 const linkify = linkifyIt();
 linkify.tlds(tlds);
 
-export default class Task extends Component {
-    constructor(props) {
-        super(props);
+export default class Task extends React.Component {
+    constructor() {
+        super();
 
         this.state = {
             deleteTaskConfirmOpened: false

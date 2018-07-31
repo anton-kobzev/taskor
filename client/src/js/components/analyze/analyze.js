@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React  from "react";
 
-export default class Analyze extends Component {
+import "./analyze.scss";
+
+export default class Analyze extends React.Component {
     constructor() {
         super();
         this.state = {

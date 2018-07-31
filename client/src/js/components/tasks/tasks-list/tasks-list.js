@@ -1,17 +1,15 @@
-import React, { Component } from "react";
-import Helpers from "../Helpers";
-import Task from "./Task";
-import AddTask from "./AddTask";
+import React from "react";
+import Helpers from "../../../utils/helpers";
+import Task from "../task/task";
+import AddTask from "../add-task/add-task";
 
-export default class TasksList extends Component {
+import "./tasks-list.scss";
+
+export default class TasksList extends React.Component {
     constructor() {
         super();
         this.state = {
             tasks: [],
-            filter: {
-                active: false,
-                tasksDisplayedIds: []
-            },
             loaded: false,
             progress: {
                 running: false,
@@ -27,56 +25,16 @@ export default class TasksList extends Component {
         this.fetchTaskList(JSON.stringify(this.props.filter));
     }
 
-    componentDidUpdate() {
-        const filterQuery = JSON.stringify(this.props.filter);
-        if (filterQuery != this.lastFilterQuery) {
-            if (this.props.filter.loadFromNetwork) {
-                this.fetchTaskList(filterQuery);
-            } else {
-                this.setState((prevState, props) => {
-                    if (props.filter.where.name) {
-                        const tasksDisplayedIds = prevState.tasks
-                            .filter(
-                                task =>
-                                    props.filter.where.name == "" ||
-                                    task.name
-                                        .toLowerCase()
-                                        .includes(
-                                            props.filter.where.name.toLowerCase()
-                                        )
-                            )
-                            .map(task => task.id);
-                        return {
-                            filter: {
-                                active: true,
-                                tasksDisplayedIds: tasksDisplayedIds
-                            }
-                        };
-                    } else {
-                        return {
-                            filter: {
-                                active: false
-                            }
-                        };
-                    }
-                });
-                this.lastFilterQuery = filterQuery;
-            }
-        }
-    }
-
     fetchTaskList(filterQuery) {
-        this.lastFilterQuery = filterQuery;
         fetch("/api/tasks/?filter=" + filterQuery)
             .then(response => {
                 if (response.ok) return response.json();
                 throw new Error(
-                    "Can not load tasks, status: " + response.status
+                    "Не получается загрузить задачи, статус: " + response.status
                 );
             })
             .then(data => {
                 this.setState({
-                    tasks: data,
                     tasks: data,
                     loaded: true
                 });
@@ -242,35 +200,37 @@ export default class TasksList extends Component {
                     </div>
                 );
             } else {
-                if (this.state.tasks.length == 0) {
-                    content = (
-                        <div className="alert alert-info">Задач пока нет</div>
+                let tasks = this.state.tasks;
+
+                if (this.props.filter.where.name) {
+                    tasks = tasks.filter(task =>
+                        task.name
+                            .toLowerCase()
+                            .includes(
+                                this.props.filter.where.name.toLowerCase()
+                            )
                     );
+                }
+
+                if (tasks.length == 0) {
+                    content = <div className="alert alert-info">Задач нет</div>;
                 } else {
-                    content = this.state.tasks
-                        .filter(
-                            task =>
-                                !this.state.filter.active ||
-                                this.state.filter.tasksDisplayedIds.includes(
-                                    task.id
-                                )
-                        )
-                        .map(task => (
-                            <Task
-                                task={task}
-                                key={task.id}
-                                inProgress={
-                                    this.state.progress.running &&
-                                    this.state.progress.task.id == task.id
-                                }
-                                onEdit={this.handleEditTask}
-                                onDelete={this.handleDeleteTask}
-                                onDone={this.handleDoneTask}
-                                onNotDone={this.handleUnDoneTask}
-                                onArchive={this.handleArchiveTask}
-                                onTimerStart={this.startTimer}
-                            />
-                        ));
+                    content = tasks.map(task => (
+                        <Task
+                            task={task}
+                            key={task.id}
+                            inProgress={
+                                this.state.progress.running &&
+                                this.state.progress.task.id == task.id
+                            }
+                            onEdit={this.handleEditTask}
+                            onDelete={this.handleDeleteTask}
+                            onDone={this.handleDoneTask}
+                            onNotDone={this.handleUnDoneTask}
+                            onArchive={this.handleArchiveTask}
+                            onTimerStart={this.startTimer}
+                        />
+                    ));
                 }
             }
         } else {

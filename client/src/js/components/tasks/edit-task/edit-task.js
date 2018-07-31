@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class EditTask extends Component {
+import "./edit-task.scss";
+
+export default class EditTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

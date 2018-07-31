@@ -1,0 +1,49 @@
+.analyze-container {
+    background: #fff;
+    border: 1px solid #ededed;
+    padding: 0 2em;
+
+    .level {
+        text-align: center;
+        padding: 3rem;
+        font-size: 2rem;
+        opacity: 0.8;
+        border-bottom: 1px solid #eaeaea;
+
+        .level-icon {
+            margin-right: 1rem;
+        }
+
+        .level-number {
+            font-weight: bold;
+            color: $success;
+        }
+    }
+
+    .analyze-item {
+        margin: 2rem;
+        padding: 1.6rem 0.9rem;
+        border: 1px solid #cecece;
+
+        .icon {
+            color: $success;
+            text-align: center;
+        }
+
+        .title {
+            display: block;
+            font-size: 1.2rem;
+        }
+
+        .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .tip {
+            font-size: 0.9em;
+            opacity: 0.8;
+            display: block;
+        }
+    }
+}

@@ -1,75 +1,78 @@
-const path = require('path');
+const path = require("path");
 
-module.exports = [{
-    mode: 'development',
-    entry: ['./client/src/js/app.js', './client/src/css/style.scss'],
-    output: {
-        path: path.resolve(__dirname, 'client/public'),
-        filename: 'js/bundle.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: '/node_modules',
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react', 'stage-2']
-                    }
-                }
-            },
-            {
-                test: /\.(sass|scss)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
+module.exports = [
+    {
+        mode: "development",
+        entry: "./client/src/js/main.js",
+        devtool: 'source-map',
+        output: {
+            path: path.resolve(__dirname, "client/public"),
+            filename: "js/bundle.js"
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: "/node_modules",
+                    use: {
+                        loader: "babel-loader",
                         options: {
-                            name: '[name].css',
-                            outputPath: 'css/'
+                            presets: ["env", "react", "stage-2"]
                         }
-                    },
-                    {
-                        loader: 'extract-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    },
-                    {
-                        loader: 'sass-loader'
                     }
-                ]
-            }
-        ]
-    },
-    plugins: [
-
-    ],
-    externals: [
-        require('webpack-require-http')
-    ],
-}, {
-    mode: 'development',
-    entry: {
-        'sw.js': './client/src/js/sw.js'
-    },
-    output: {
-        path: path.resolve(__dirname, 'client/public'),
-        filename: '[name]'
-    },
-    module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: '/node_modules',
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['env', 'react', 'stage-2']
+                },
+                {
+                    test: /\.(sass|scss)$/,
+                    use: [
+                        "style-loader",
+                        {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        "postcss-loader",
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: "sass-resources-loader",
+                            options: {
+                                resources: "./client/src/css/vars.scss"
+                            }
+                        }
+                    ]
                 }
-            }
-        }]
+            ]
+        },
+        plugins: [],
+        externals: [require("webpack-require-http")]
+    },
+    {
+        mode: "development",
+        entry: {
+            "sw.js": "./client/src/js/sw.js"
+        },
+        output: {
+            path: path.resolve(__dirname, "client/public"),
+            filename: "[name]"
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: "/node_modules",
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["env", "react", "stage-2"]
+                        }
+                    }
+                }
+            ]
+        }
     }
-}];
+];

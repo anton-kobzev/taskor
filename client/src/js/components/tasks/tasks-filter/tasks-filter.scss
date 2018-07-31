@@ -1,0 +1,31 @@
+.tasks-filter {
+    .search {
+        width: 20rem;
+        $tasks-filter-input-color: lighten($primary, 50%);
+        $tasks-filter-input-color-dark: lighten($primary, 20%);
+        font-family: var(--font-family-monospace);
+        position: relative;
+        input {
+            height: 44px;
+            padding-left: 35px;
+            border: none;
+            background: darken($primary, 8%);
+            color: $tasks-filter-input-color;
+            caret-color: $tasks-filter-input-color;
+            &::placeholder {
+                color: $tasks-filter-input-color-dark;
+            }
+        }
+        .search-icon-container {
+            position: absolute;
+            left: 13px;
+            top: 10px;
+            z-index: 4;
+            color: $tasks-filter-input-color-dark;
+            transition: color .1s;
+        }
+        &:focus-within .search-icon-container {
+            color: $tasks-filter-input-color;
+        }
+    }
+}

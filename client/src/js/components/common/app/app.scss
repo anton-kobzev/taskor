@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
+@import "~bootstrap/scss/bootstrap";
+@import "common";
+
+.animated-switch-wrapper {
+    position: relative;
+
+    & > div {
+        position: absolute;
+        width: 100%;
+    }
+}
+
+// Modals
+.ReactModal__Overlay {
+    z-index: 100000;
+}
+
+.ReactModal__Content {
+    width: 230px;
+    height: 170px;
+    margin: auto;
+
+    .modal-title {
+        margin-top: 25px;
+    }
+
+    .modal-close {
+        color: black;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .modal-buttons {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+}

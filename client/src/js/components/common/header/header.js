@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-import TasksFilter from "./tasks/TasksFilter";
+import React  from "react";
+import TasksFilter from "../../tasks/tasks-filter/tasks-filter";
 
-export default class NavBar extends Component {
+import "./header.scss";
+
+export default class Header extends React.Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-primary justify-content-between">

@@ -1,0 +1,13 @@
+.navbar.sidebar {
+    padding-left: 4px;
+    margin-top: 25px;
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+
+        &.active {
+            background: #ececec;
+            border-radius: 0.8em;
+        }
+    }
+}
