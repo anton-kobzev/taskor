@@ -1,3 +1,6 @@
 {
-
+    "name": "taskor",
+    "env": {
+        "NODE_ENV": "production"
+    }
 }
