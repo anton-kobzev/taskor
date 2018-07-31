@@ -1,5 +1,5 @@
 {
-    "alias": "taskor.now.sh",
+    "name": "taskor",
     "env": {
         "NODE_ENV": "production"
     }

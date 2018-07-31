@@ -1,6 +1,43 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
 @import "~bootstrap/scss/bootstrap";
-@import "common";
+
+body {
+    padding-bottom: 15em;
+}
+
+input, textarea {
+    outline: none !important;
+}
+
+.btn {
+    box-shadow: none !important;
+
+    .icon {
+        margin-right: 0.15em;
+    }
+
+    &.btn-sm .icon {
+        margin-right: 0.35em;
+    }
+}
+
+.link-secondary {
+    color: #6b6b6b;
+    &:hover {
+        color: #545454;
+    }
+}
+
+.invisible-animated {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s;
+}
+
+.visible-animated {
+    opacity: 1;
+    transition: opacity .5s;
+}
 
 .animated-switch-wrapper {
     position: relative;
@@ -9,6 +46,12 @@
         position: absolute;
         width: 100%;
     }
+}
+
+.alert {
+    font-size: 1.2rem;
+    font-weight: lighter;
+    padding: 1rem 2rem;
 }
 
 // Modals
