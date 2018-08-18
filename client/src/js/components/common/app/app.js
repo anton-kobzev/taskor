@@ -1,39 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { spring, AnimatedSwitch } from "react-router-transition";
+import React from "react"
+import ReactDOM from "react-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import { spring, AnimatedSwitch } from "react-router-transition"
 
-import Header from "../header/header";
-import Sidebar from "../sidebar/sidebar";
-import TasksList from "../../tasks/tasks-list/tasks-list";
-import Analyze from "../../analyze/analyze";
-import Settings from "../../settings/settings";
+import Header from "../header/header"
+import Sidebar from "../sidebar/sidebar"
+import TasksList from "../../tasks/tasks-list/tasks-list"
+import Analyze from "../../analyze/analyze"
+import Settings from "../../settings/settings"
 
-import "./app.scss";
+import "./app.scss"
 
 class App extends React.Component {
     constructor() {
-        super();
-        this.state = {
-            tasksLoaded: false,
-            filter: {
-                where: {
-                    archive: false
-                },
-                order: "done"
-            }
-        };
+        super()
     }
 
     componentWillMount() {
         if (navigator.serviceWorker) {
-            navigator.serviceWorker.register("sw.js");
+            navigator.serviceWorker.register("sw.js")
         }
     }
-
-    handleFilterChange = filter => {
-        this.setState({ filter });
-    };
 
     render() {
         const animatedSwitchMapStyles = styles => ({
@@ -47,17 +34,17 @@ class App extends React.Component {
             },
             atLeave: {
                 opacity: 0,
-                y: spring(20)
+                y: spring(-10)
             },
             atActive: {
                 opacity: 1,
                 y: spring(0)
             }
-        };
+        }
 
         return (
             <div>
-                <Header onFilterChange={this.handleFilterChange} />
+                <Header />
                 <Router>
                     <div className="container">
                         <div className="row no-gutters">
@@ -75,11 +62,7 @@ class App extends React.Component {
                                     <Route
                                         exact
                                         path="/"
-                                        component={() => (
-                                            <TasksList
-                                                filter={this.state.filter}
-                                            />
-                                        )}
+                                        component={() => <TasksList />}
                                     />
                                     <Route
                                         path="/analyze"
@@ -96,10 +79,10 @@ class App extends React.Component {
                     </div>
                 </Router>
             </div>
-        );
+        )
     }
 }
 
 if (document.getElementById("root")) {
-    ReactDOM.render(<App />, document.getElementById("root"));
+    ReactDOM.render(<App />, document.getElementById("root"))
 }

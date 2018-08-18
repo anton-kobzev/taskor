@@ -1,17 +1,20 @@
 .tasks-filter {
+    width: 100%;
+
     .search {
-        width: 20rem;
-        $tasks-filter-input-color: lighten($primary, 50%);
-        $tasks-filter-input-color-dark: lighten($primary, 20%);
+        width: 100%;
+        $tasks-filter-input-color: #404040;
+        $tasks-filter-input-color-dark: #808080;
         font-family: var(--font-family-monospace);
         position: relative;
         input {
             height: 44px;
             padding-left: 35px;
-            border: none;
-            background: darken($primary, 8%);
+            border: 1px solid #ededed;
             color: $tasks-filter-input-color;
             caret-color: $tasks-filter-input-color;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
             &::placeholder {
                 color: $tasks-filter-input-color-dark;
             }
@@ -22,7 +25,7 @@
             top: 10px;
             z-index: 4;
             color: $tasks-filter-input-color-dark;
-            transition: color .1s;
+            transition: color 0.3s;
         }
         &:focus-within .search-icon-container {
             color: $tasks-filter-input-color;

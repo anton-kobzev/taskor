@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
 @import "~bootstrap/scss/bootstrap";
 
-input, textarea {
+input,
+textarea {
     outline: none !important;
 }
 
@@ -27,12 +28,12 @@ input, textarea {
 .invisible-animated {
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 .visible-animated {
     opacity: 1;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 .animated-switch-wrapper {
@@ -77,5 +78,17 @@ input, textarea {
         position: absolute;
         bottom: 20px;
         right: 20px;
+    }
+}
+
+.page-section {
+    background: #fff;
+    border: 1px solid #ededed;
+    padding: 1rem 3em;
+    border-radius: $border-radius;
+
+    header {
+        font-size: 2rem;
+        margin-top: 0.5rem;
     }
 }

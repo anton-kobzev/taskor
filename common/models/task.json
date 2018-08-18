@@ -40,7 +40,7 @@
     "methods": {
         "analyze": {
             "accepts": [],
-            "returns": [{"arg": "result", "type": "Object"}],
+            "returns": [{ "arg": "result", "type": "Object" }],
             "description": "Analyze your productivity",
             "http": [
                 {

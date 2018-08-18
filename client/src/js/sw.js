@@ -1,14 +1,14 @@
-import * as AppInfo from "./utils/appInfo";
+import * as AppInfo from "./utils/appInfo"
 
-const CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION;
+const CACHE_NAME = AppInfo.APP_NAME + AppInfo.APP_VERSION
 
-const APP_SHELL_TO_CACHE = ["/", "js/bundle.js", "css/style.css"];
+const APP_SHELL_TO_CACHE = ["/", "js/bundle.js", "css/style.css"]
 
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL_TO_CACHE))
-    );
-});
+    )
+})
 
 self.addEventListener("activate", event => {
     event.waitUntil(
@@ -25,12 +25,12 @@ self.addEventListener("activate", event => {
                         .map(cacheName => caches.delete(cacheName))
                 )
             )
-    );
-});
+    )
+})
 
 self.addEventListener("fetch", event => {
     if (event.request.url.indexOf("/api") != -1) {
-        event.respondWith(fetch(event.request));
+        event.respondWith(fetch(event.request))
     } else {
         event.respondWith(
             caches
@@ -40,6 +40,6 @@ self.addEventListener("fetch", event => {
                         .match(event.request)
                         .then(response => response || fetch(event.request))
                 )
-        );
+        )
     }
-});
+})

@@ -1,7 +1,7 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from "react"
+import { NavLink } from "react-router-dom"
 
-import "./sidebar.scss";
+import "./sidebar.scss"
 
 export default class Sidebar extends React.Component {
     render() {
@@ -21,7 +21,7 @@ export default class Sidebar extends React.Component {
                 url: "/settings",
                 icon: "fas fa-cog"
             }
-        ];
+        ]
         return (
             <nav className="navbar sidebar">
                 <ul className="navbar-nav">
@@ -40,6 +40,6 @@ export default class Sidebar extends React.Component {
                     ))}
                 </ul>
             </nav>
-        );
+        )
     }
 }

@@ -1,26 +1,30 @@
-import React from "react";
+import React from "react"
 
-import "./tasks-filter.scss";
+import "./tasks-filter.scss"
 
 export default class TasksFilter extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
-            where: {
-                archive: false
-            },
-            order: "done"
-        };
+            filter: {
+                where: {
+                    archive: false
+                },
+                order: "done"
+            }
+        }
     }
 
-    handleInput = (key, e) => {
-        let where = {};
-        where[key] = e.target.value;
-        this.props.onChange({
-            loadFromNetwork: false,
-            where: where
-        });
-    };
+    handleInput = (key, value) => {
+        this.setState(prevState => {
+            if (value)
+                prevState.filter.where[key] = value
+            else
+                delete prevState.filter.where[key]
+            this.props.onFilter(prevState.filter)
+            return prevState
+        })
+    }
 
     render() {
         return (
@@ -33,10 +37,10 @@ export default class TasksFilter extends React.Component {
                         type="text"
                         className="form-control search-input"
                         placeholder="Поиск и фильтр"
-                        onChange={e => this.handleInput("name", e)}
+                        onChange={e => this.handleInput("name", e.target.value)}
                     />
                 </div>
             </form>
-        );
+        )
     }
 }
