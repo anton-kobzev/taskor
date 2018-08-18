@@ -22,7 +22,8 @@ export default class TasksList extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchTaskList(JSON.stringify(this.props.filter));
+        if (this.props.filter.loadFromNetwork !== false)
+            this.fetchTaskList(JSON.stringify(this.props.filter));
     }
 
     fetchTaskList(filterQuery) {

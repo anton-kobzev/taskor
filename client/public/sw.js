@@ -106,7 +106,7 @@ eval("\n\nvar _appInfo = __webpack_require__(/*! ./utils/appInfo */ \"./client/s
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar APP_NAME = exports.APP_NAME = \"Taskor\";\nvar APP_VERSION = exports.APP_VERSION = \"1.2.1\";\n\n//# sourceURL=webpack:///./client/src/js/utils/appInfo.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar APP_NAME = exports.APP_NAME = \"Taskor\";\nvar APP_VERSION = exports.APP_VERSION = \"1.2.2\";\n\n//# sourceURL=webpack:///./client/src/js/utils/appInfo.js?");
 
 /***/ })
 

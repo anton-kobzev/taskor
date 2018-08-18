@@ -1,6 +1,7 @@
 {
     "name": "taskor",
     "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "MONGODB_URL": "@taskor_mongodb_url"
     }
 }
