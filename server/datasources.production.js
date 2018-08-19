@@ -1,7 +1,7 @@
 const mongodbUrl = process.env.MONGODB_URL
 
 if (mongodbUrl) {
-    console.log("Using MongoDB url:", mongodbUrl)
+    console.log("Using MongoDB url")
 
     module.exports = {
         db: {
