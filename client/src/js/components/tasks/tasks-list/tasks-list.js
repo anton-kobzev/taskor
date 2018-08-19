@@ -59,6 +59,7 @@ export default class TasksList extends React.Component {
     }
 
     updateTask(task) {
+        this.updateTaskInList(task)
         return fetch("/api/tasks/" + task.id, {
             method: "PATCH",
             headers: {
@@ -67,18 +68,18 @@ export default class TasksList extends React.Component {
             },
             body: JSON.stringify(task)
         })
-            .then(response => response.json())
-            .then(task => {
-                this.updateTaskInList(task)
-            })
     }
 
     updateTaskInList(task) {
         this.setState(prevState => {
-            prevState.tasks = prevState.tasks.map(
-                currentTask => (currentTask.id === task.id ? task : currentTask)
-            )
-            return prevState
+            return {
+                tasks: prevState.tasks.map(
+                    currentTask =>
+                        currentTask.id === task.id
+                            ? { ...currentTask, ...task }
+                            : currentTask
+                )
+            }
         })
     }
 
@@ -90,6 +91,12 @@ export default class TasksList extends React.Component {
     }
 
     handleAddTask = task => {
+        const tempId = "temp-" + Math.round(Math.random() * 1000)
+        this.setState(prevState => {
+            return {
+                tasks: prevState.tasks.concat({ ...task, id: tempId })
+            }
+        })
         fetch("/api/tasks", {
             method: "POST",
             headers: {
@@ -99,11 +106,15 @@ export default class TasksList extends React.Component {
             body: JSON.stringify(task)
         })
             .then(response => response.json())
-            .then(data => {
+            .then(createdTask => {
                 this.setState(prevState => {
-                    const tasks = prevState.tasks.concat(data)
                     return {
-                        tasks: tasks
+                        tasks: prevState.tasks.map(task => {
+                            return {
+                                ...task,
+                                id: task.id == tempId ? createdTask.id : task.id
+                            }
+                        })
                     }
                 })
             })
@@ -114,14 +125,14 @@ export default class TasksList extends React.Component {
     }
 
     handleDeleteTask = task => {
-        fetch("/api/tasks/" + task.id, { method: "delete" }).then(() => {
-            this.removeTaskFromList(task)
-            if (
-                this.state.progress.running &&
-                this.state.progress.task.id == task.id
-            )
-                this.stopTimer()
-        })
+        this.removeTaskFromList(task)
+        if (
+            this.state.progress.running &&
+            this.state.progress.task.id == task.id
+        ) {
+            this.stopTimer()
+        }
+        fetch("/api/tasks/" + task.id, { method: "delete" })
     }
 
     handleDoneTask = task => {

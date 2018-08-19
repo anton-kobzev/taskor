@@ -1528,6 +1528,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -1569,6 +1571,12 @@ var TasksList = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (TasksList.__proto__ || Object.getPrototypeOf(TasksList)).call(this));
 
         _this.handleAddTask = function (task) {
+            var tempId = "temp-" + Math.round(Math.random() * 1000);
+            _this.setState(function (prevState) {
+                return {
+                    tasks: prevState.tasks.concat(_extends({}, task, { id: tempId }))
+                };
+            });
             fetch("/api/tasks", {
                 method: "POST",
                 headers: {
@@ -1578,11 +1586,14 @@ var TasksList = function (_React$Component) {
                 body: JSON.stringify(task)
             }).then(function (response) {
                 return response.json();
-            }).then(function (data) {
+            }).then(function (createdTask) {
                 _this.setState(function (prevState) {
-                    var tasks = prevState.tasks.concat(data);
                     return {
-                        tasks: tasks
+                        tasks: prevState.tasks.map(function (task) {
+                            return _extends({}, task, {
+                                id: task.id == tempId ? createdTask.id : task.id
+                            });
+                        })
                     };
                 });
             });
@@ -1593,10 +1604,11 @@ var TasksList = function (_React$Component) {
         };
 
         _this.handleDeleteTask = function (task) {
-            fetch("/api/tasks/" + task.id, { method: "delete" }).then(function () {
-                _this.removeTaskFromList(task);
-                if (_this.state.progress.running && _this.state.progress.task.id == task.id) _this.stopTimer();
-            });
+            _this.removeTaskFromList(task);
+            if (_this.state.progress.running && _this.state.progress.task.id == task.id) {
+                _this.stopTimer();
+            }
+            fetch("/api/tasks/" + task.id, { method: "delete" });
         };
 
         _this.handleDoneTask = function (task) {
@@ -1719,8 +1731,7 @@ var TasksList = function (_React$Component) {
     }, {
         key: "updateTask",
         value: function updateTask(task) {
-            var _this3 = this;
-
+            this.updateTaskInList(task);
             return fetch("/api/tasks/" + task.id, {
                 method: "PATCH",
                 headers: {
@@ -1728,20 +1739,17 @@ var TasksList = function (_React$Component) {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify(task)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (task) {
-                _this3.updateTaskInList(task);
             });
         }
     }, {
         key: "updateTaskInList",
         value: function updateTaskInList(task) {
             this.setState(function (prevState) {
-                prevState.tasks = prevState.tasks.map(function (currentTask) {
-                    return currentTask.id === task.id ? task : currentTask;
-                });
-                return prevState;
+                return {
+                    tasks: prevState.tasks.map(function (currentTask) {
+                        return currentTask.id === task.id ? _extends({}, currentTask, task) : currentTask;
+                    })
+                };
             });
         }
     }, {
@@ -1757,7 +1765,7 @@ var TasksList = function (_React$Component) {
     }, {
         key: "renderTasks",
         value: function renderTasks() {
-            var _this4 = this;
+            var _this3 = this;
 
             var content = void 0;
 
@@ -1773,7 +1781,7 @@ var TasksList = function (_React$Component) {
 
                     if (this.state.filter.where !== undefined && this.state.filter.where.name) {
                         tasks = tasks.filter(function (task) {
-                            return task.name.toLowerCase().includes(_this4.state.filter.where.name.toLowerCase()) || task.description.toLowerCase().includes(_this4.state.filter.where.name.toLowerCase());
+                            return task.name.toLowerCase().includes(_this3.state.filter.where.name.toLowerCase()) || task.description.toLowerCase().includes(_this3.state.filter.where.name.toLowerCase());
                         });
                     }
 
@@ -1789,13 +1797,13 @@ var TasksList = function (_React$Component) {
                             return _react2.default.createElement(_task2.default, {
                                 task: task,
                                 key: task.id,
-                                inProgress: _this4.state.progress.running && _this4.state.progress.task.id == task.id,
-                                onEdit: _this4.handleEditTask,
-                                onDelete: _this4.handleDeleteTask,
-                                onDone: _this4.handleDoneTask,
-                                onNotDone: _this4.handleUnDoneTask,
-                                onArchive: _this4.handleArchiveTask,
-                                onTimerStart: _this4.startTimer
+                                inProgress: _this3.state.progress.running && _this3.state.progress.task.id == task.id,
+                                onEdit: _this3.handleEditTask,
+                                onDelete: _this3.handleDeleteTask,
+                                onDone: _this3.handleDoneTask,
+                                onNotDone: _this3.handleUnDoneTask,
+                                onArchive: _this3.handleArchiveTask,
+                                onTimerStart: _this3.startTimer
                             });
                         });
                     }
@@ -1822,10 +1830,10 @@ var TasksList = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this5 = this;
+            var _this4 = this;
 
             var taskInProgress = this.state.progress.task && this.state.tasks.find(function (task) {
-                return task.id == _this5.state.progress.task.id;
+                return task.id == _this4.state.progress.task.id;
             });
             var timerPanel = _react2.default.createElement(
                 "div",
