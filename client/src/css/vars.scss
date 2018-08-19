@@ -36,7 +36,6 @@ $body-bg: $light;
 
 // Typography
 $font-family-sans-serif: "Fira Sans", sans-serif;
-$font-family-monospace: "Fira Mono", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -52,3 +51,6 @@ $list-group-border-color: darken($light, 5%);
 // Inputs
 $input-focus-border-color: #afafaf;
 $input-focus-box-shadow: none;
+
+$loader-color-from: #e187ff;
+$loader-color-to: #ffa692;

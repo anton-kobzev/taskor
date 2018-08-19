@@ -19,7 +19,7 @@ self.addEventListener("activate", event => {
                     cacheNames
                         .filter(
                             cacheName =>
-                                cacheName.startsWith(APP_NAME) &&
+                                cacheName.startsWith(AppInfo.APP_NAME) &&
                                 cacheName != CACHE_NAME
                         )
                         .map(cacheName => caches.delete(cacheName))

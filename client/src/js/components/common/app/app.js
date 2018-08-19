@@ -7,7 +7,6 @@ import Header from "../header/header"
 import Sidebar from "../sidebar/sidebar"
 import TasksList from "../../tasks/tasks-list/tasks-list"
 import Analyze from "../../analyze/analyze"
-import Settings from "../../settings/settings"
 
 import "./app.scss"
 
@@ -67,10 +66,6 @@ class App extends React.Component {
                                     <Route
                                         path="/analyze"
                                         component={Analyze}
-                                    />
-                                    <Route
-                                        path="/settings"
-                                        component={Settings}
                                     />
                                     <Route render={() => <div>404 (</div>} />
                                 </AnimatedSwitch>

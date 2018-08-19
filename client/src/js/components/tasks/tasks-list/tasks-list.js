@@ -223,22 +223,27 @@ export default class TasksList extends React.Component {
                     this.state.filter.where !== undefined &&
                     this.state.filter.where.name
                 ) {
-                    tasks = tasks.filter(task =>
-                        task.name
-                            .toLowerCase()
-                            .includes(
-                                this.state.filter.where.name.toLowerCase()
-                            )
-                    || task.description
-                            .toLowerCase()
-                            .includes(
-                                this.state.filter.where.name.toLowerCase()
-                            )
+                    tasks = tasks.filter(
+                        task =>
+                            task.name
+                                .toLowerCase()
+                                .includes(
+                                    this.state.filter.where.name.toLowerCase()
+                                ) ||
+                            task.description
+                                .toLowerCase()
+                                .includes(
+                                    this.state.filter.where.name.toLowerCase()
+                                )
                     )
                 }
 
                 if (tasks.length == 0) {
-                    content = <div className="alert alert-info">Задач нет</div>
+                    content = (
+                        <div className="alert alert-info">
+                            <i className="far fa-dot-circle icon" /> Задач нет
+                        </div>
+                    )
                 } else {
                     content = tasks.map(task => (
                         <Task
@@ -260,7 +265,12 @@ export default class TasksList extends React.Component {
             }
         } else {
             content = (
-                <div className="alert alert-info">Загрузка списка задач...</div>
+                <div className="alert alert-info">
+                    <span className="loader" />
+                    <span className="loader-message">
+                        Загрузка списка задач...
+                    </span>
+                </div>
             )
         }
 

@@ -17,10 +17,7 @@ export default class TasksFilter extends React.Component {
 
     handleInput = (key, value) => {
         this.setState(prevState => {
-            if (value)
-                prevState.filter.where[key] = value
-            else
-                delete prevState.filter.where[key]
+            prevState.filter.where[key] = value
             this.props.onFilter(prevState.filter)
             return prevState
         })
@@ -28,7 +25,7 @@ export default class TasksFilter extends React.Component {
 
     render() {
         return (
-            <form className="filter tasks-filter">
+            <form className="filter tasks-filter" onSubmit={e => e.preventDefault()}>
                 <div className="search">
                     <div className="search-icon-container">
                         <i className="fas fa-search" />
@@ -36,7 +33,7 @@ export default class TasksFilter extends React.Component {
                     <input
                         type="text"
                         className="form-control search-input"
-                        placeholder="Поиск и фильтр"
+                        placeholder="Поиск и фильтр..."
                         onChange={e => this.handleInput("name", e.target.value)}
                     />
                 </div>

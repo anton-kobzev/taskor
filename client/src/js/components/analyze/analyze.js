@@ -47,7 +47,7 @@ export default class Analyze extends React.Component {
                     {
                         title: "Заработано",
                         value: result.donePrice,
-                        unit: "",
+                        unit: "у. е.",
                         icon: "fas fa-award",
                         tip:
                             result.potentialPrice == result.donePrice

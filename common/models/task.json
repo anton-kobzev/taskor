@@ -11,11 +11,11 @@
             "required": true
         },
         "description": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
         "done": {
             "type": "boolean",
-            "required": true,
             "default": false
         },
         "archive": {

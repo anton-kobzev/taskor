@@ -15,11 +15,6 @@ export default class Sidebar extends React.Component {
                 title: "Анализ",
                 url: "/analyze",
                 icon: "fas fa-chart-pie"
-            },
-            {
-                title: "Настройки",
-                url: "/settings",
-                icon: "fas fa-cog"
             }
         ]
         return (
