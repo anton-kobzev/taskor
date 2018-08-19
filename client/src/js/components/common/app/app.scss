@@ -99,5 +99,10 @@ textarea {
 @media (max-width: 768px) {
     .page-section {
         margin-bottom: 2em;
+        padding: 1rem 1.5rem;
+
+        header {
+            font-size: 1.4rem;
+        }
     }
 }

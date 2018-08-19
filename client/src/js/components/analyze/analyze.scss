@@ -39,4 +39,10 @@
         text-align: center;
         opacity: .8;
     }
+
+    @media (max-width: 768px) {
+        .analyze-item {
+            margin: .7rem;
+        }
+    }
 }
