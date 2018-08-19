@@ -1,11 +1,8 @@
-@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600|Fira+Mono");
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600");
 @import "~bootstrap/scss/bootstrap";
 
-body {
-    padding-bottom: 15em;
-}
-
-input, textarea {
+input,
+textarea {
     outline: none !important;
 }
 
@@ -31,12 +28,12 @@ input, textarea {
 .invisible-animated {
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 .visible-animated {
     opacity: 1;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 .animated-switch-wrapper {
@@ -51,35 +48,50 @@ input, textarea {
 .alert {
     font-size: 1.2rem;
     font-weight: lighter;
-    padding: 1rem 2rem;
-}
+    padding: 2rem 2rem;
+    display: flex;
+    justify-content: center;
 
-// Modals
-.ReactModal__Overlay {
-    z-index: 100000;
-}
-
-.ReactModal__Content {
-    width: 230px;
-    height: 170px;
-    margin: auto;
-
-    .modal-title {
-        margin-top: 25px;
+    .loader-message {
+        margin-top: 6px;
     }
 
-    .modal-close {
-        color: black;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 15px;
-        height: 15px;
+    .icon {
+        margin-top: 5px;
+        margin-right: 10px;
     }
+}
 
-    .modal-buttons {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
+.loader {
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: 18px;
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ddd;
+    border-top-color: #e187ff;
+    border-radius: 50%;
+    animation: loader-spin 1s linear infinite;
+}
+
+@keyframes loader-spin {
+    50% {
+        border-top-color: $loader-color-to;
+    }
+    100% {
+        border-top-color: $loader-color-from;
+        transform: rotate(360deg);
+    }
+}
+
+.page-section {
+    background: #fff;
+    border: 1px solid #ededed;
+    padding: 1rem 3em;
+    border-radius: $border-radius;
+
+    header {
+        font-size: 2rem;
+        margin-top: 0.5rem;
     }
 }

@@ -1,7 +1,7 @@
 .list-group-item.task {
     padding-left: 2.2em;
     min-height: 65px;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
     border: 1px solid #ededed;
     margin-bottom: 0;
 
@@ -104,7 +104,7 @@
 
         .action {
             margin-right: 0.5rem;
-            transition: color .3s;
+            transition: color 0.3s;
         }
 
         .action-icon {

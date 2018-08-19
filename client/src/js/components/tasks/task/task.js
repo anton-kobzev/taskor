@@ -1,28 +1,28 @@
-import React from "react";
-import linkifyIt from "linkify-it";
-import tlds from "tlds";
-import EditTask from "../edit-task/edit-task";
+import React from "react"
+import linkifyIt from "linkify-it"
+import tlds from "tlds"
+import EditTask from "../edit-task/edit-task"
 
-import "./task.scss";
+import "./task.scss"
 
-const linkify = linkifyIt();
-linkify.tlds(tlds);
+const linkify = linkifyIt()
+linkify.tlds(tlds)
 
 export default class Task extends React.Component {
     constructor() {
-        super();
+        super()
 
         this.state = {
             deleteTaskConfirmOpened: false
-        };
+        }
     }
 
     handleEditTask = task => {
         document
             .getElementById("task-" + task.id)
-            .classList.remove("active-task");
-        this.props.onEdit(task);
-    };
+            .classList.remove("active-task")
+        this.props.onEdit(task)
+    }
 
     handleEditTaskClick = e => {
         if (
@@ -31,10 +31,10 @@ export default class Task extends React.Component {
             e.target.classList.contains("task-description")
         ) {
             for (let e of document.getElementsByClassName("task"))
-                e.classList.remove("active-task");
+                e.classList.remove("active-task")
             document
                 .getElementById("task-" + this.props.task.id)
-                .classList.add("active-task");
+                .classList.add("active-task")
             document
                 .querySelectorAll(
                     ".task-edit-" +
@@ -42,34 +42,34 @@ export default class Task extends React.Component {
                         " .task-description-input"
                 )
                 .forEach(o => {
-                    o.style.height = "1px";
-                    o.style.height = 23 + o.scrollHeight + "px";
-                });
+                    o.style.height = "1px"
+                    o.style.height = 23 + o.scrollHeight + "px"
+                })
         }
-    };
+    }
 
     handleDeleteTask = () => {
-        this.setState({ deleteTaskConfirmOpened: true });
-    };
+        this.setState({ deleteTaskConfirmOpened: true })
+    }
 
     handleDoneTask = () => {
-        this.props.onDone(this.props.task);
-    };
+        this.props.onDone(this.props.task)
+    }
 
     handleNotDoneTask = () => {
-        this.props.onNotDone(this.props.task);
-    };
+        this.props.onNotDone(this.props.task)
+    }
 
     handleArchiveTask = () => {
-        this.props.onArchive(this.props.task);
-    };
+        this.props.onArchive(this.props.task)
+    }
 
     handleTimerStart = () => {
-        this.props.onTimerStart(this.props.task);
-    };
+        this.props.onTimerStart(this.props.task)
+    }
 
     render() {
-        let task = this.props.task;
+        let task = this.props.task
         return (
             <div
                 className={
@@ -139,7 +139,7 @@ export default class Task extends React.Component {
                                     <button
                                         className="btn btn-danger btn-sm btn-collapse"
                                         onClick={() => {
-                                            this.props.onDelete(task);
+                                            this.props.onDelete(task)
                                         }}
                                     >
                                         <i className="fas fa-trash icon" />
@@ -181,29 +181,26 @@ export default class Task extends React.Component {
                     </div>
                 </div>
 
-                <EditTask
-                    task={task}
-                    onEdit={this.handleEditTask}
-                />
+                <EditTask task={task} onEdit={this.handleEditTask} />
             </div>
-        );
+        )
     }
 
     static renderDescription(desc) {
         if (desc) {
             // Shorten text without cutting words
-            const allowedLength = 95;
+            const allowedLength = 95
             if (desc.length > allowedLength) {
-                const initial = desc;
-                desc = desc.substr(0, allowedLength);
+                const initial = desc
+                desc = desc.substr(0, allowedLength)
                 desc = desc.substr(
                     0,
                     Math.min(desc.length, desc.lastIndexOf(" "))
-                );
-                if (desc != initial) desc += "...";
+                )
+                if (desc != initial) desc += "..."
             }
             // Search for links
-            const matches = linkify.match(desc);
+            const matches = linkify.match(desc)
             if (typeof matches !== "undefined" && matches !== null) {
                 for (let i = 0; i < matches.length; i++) {
                     desc = desc.replace(
@@ -211,10 +208,10 @@ export default class Task extends React.Component {
                         `<a href="${matches[i].url}" target="_blank">${
                             matches[i].raw
                         }</a>`
-                    );
+                    )
                 }
             }
         }
-        return desc;
+        return desc
     }
 }

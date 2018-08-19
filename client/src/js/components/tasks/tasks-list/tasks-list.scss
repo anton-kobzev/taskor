@@ -1,4 +1,6 @@
 .task-list-container {
+    padding-bottom: 5em;
+
     .panel {
         margin-top: -65px;
         height: 65px;
@@ -52,5 +54,14 @@
                 color: $primary;
             }
         }
+    }
+
+    .task:first-child, .alert {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .task:first-child {
+        border-top: none;
     }
 }

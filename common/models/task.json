@@ -11,11 +11,11 @@
             "required": true
         },
         "description": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
         "done": {
             "type": "boolean",
-            "required": true,
             "default": false
         },
         "archive": {
@@ -40,7 +40,7 @@
     "methods": {
         "analyze": {
             "accepts": [],
-            "returns": [{"arg": "result", "type": "Object"}],
+            "returns": [{ "arg": "result", "type": "Object" }],
             "description": "Analyze your productivity",
             "http": [
                 {

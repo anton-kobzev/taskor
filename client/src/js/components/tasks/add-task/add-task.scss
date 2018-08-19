@@ -1,8 +1,16 @@
 .add-task-container {
     margin-top: 1px;
-    .add-task-name-input {
-        width: 20em;
+
+    .add-task-name-input.form-control {
+        width: 170px;
+        margin-right: 8px;
+        transition: width .4s;
+
+        &:focus {
+            width: 300px;
+        }
     }
+
     .add-task-button {
         padding: 11px 40px;
         background: #f3f3f3;

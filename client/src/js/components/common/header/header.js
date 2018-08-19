@@ -1,7 +1,7 @@
-import React  from "react";
-import TasksFilter from "../../tasks/tasks-filter/tasks-filter";
+import React from "react"
+import TasksFilter from "../../tasks/tasks-filter/tasks-filter"
 
-import "./header.scss";
+import "./header.scss"
 
 export default class Header extends React.Component {
     render() {
@@ -11,17 +11,16 @@ export default class Header extends React.Component {
                     <a className="navbar-brand mr-4" href="/">
                         <i className="fas fa-bolt" /> Taskor
                     </a>
-                    <TasksFilter onChange={this.props.onFilterChange} />
                     <ul className="navbar-nav ml-4">
                         <li className="nav-item">
                             <a href="#" className="nav-link">
-                                <i className="fas fa-user-circle fa-lg mr-1" /> Антон
-                                Кобзев
+                                <i className="fas fa-user-circle fa-lg mr-1" />{" "}
+                                Антон Кобзев
                             </a>
                         </li>
                     </ul>
                 </div>
             </nav>
-        );
+        )
     }
 }

@@ -1,49 +1,42 @@
 .analyze-container {
-    background: #fff;
-    border: 1px solid #ededed;
-    padding: 0 2em;
-
-    .level {
-        text-align: center;
-        padding: 3rem;
-        font-size: 2rem;
-        opacity: 0.8;
-        border-bottom: 1px solid #eaeaea;
-
-        .level-icon {
-            margin-right: 1rem;
-        }
-
-        .level-number {
-            font-weight: bold;
-            color: $success;
-        }
+    .analyze-item {
+        margin: 2rem 1rem;
+        padding: 0;
     }
 
-    .analyze-item {
-        margin: 2rem;
-        padding: 1.6rem 0.9rem;
-        border: 1px solid #cecece;
-
-        .icon {
-            color: $success;
-            text-align: center;
-        }
+    .analyze-item-inner {
+        display: flex;
+        padding: 1.6rem 2rem 1.1rem;
+        border-radius: $border-radius;
 
         .title {
             display: block;
             font-size: 1.2rem;
+            font-weight: 300;
         }
 
         .value {
-            font-size: 1.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
         }
 
-        .tip {
-            font-size: 0.9em;
-            opacity: 0.8;
-            display: block;
+        .analyze-item-icon-container {
+            margin-right: 1rem;
         }
+    }
+
+    .with-tip .analyze-item-inner {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .analyze-item-tip {
+        border: 2px solid #ddd;
+        border-top: none;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        padding: .3rem 1rem;
+        text-align: center;
+        opacity: .8;
     }
 }
