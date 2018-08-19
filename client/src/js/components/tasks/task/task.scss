@@ -150,5 +150,13 @@
         .task-timer-button, .task-delete-button {
             display: none;
         }
+
+        .task-name {
+            overflow: hidden;
+        }
+
+        .task-data {
+            white-space: nowrap;
+        }
     }
 }
