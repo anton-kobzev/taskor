@@ -56,12 +56,19 @@
         }
     }
 
-    .task:first-child, .alert {
+    .task:first-child,
+    .alert {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
 
     .task:first-child {
         border-top: none;
+    }
+
+    @media (max-width: 768px) {
+        .panel {
+            display: none;
+        }
     }
 }

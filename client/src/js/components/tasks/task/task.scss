@@ -133,27 +133,6 @@
 
         .task-edit {
             display: block;
-
-            .task-edit-inner {
-                width: 70%;
-            }
-        }
-
-        .task-name-input {
-            width: 60%;
-            font-size: 16px;
-        }
-
-        .task-description-input {
-            width: 60%;
-        }
-
-        .task-small-input {
-            width: 3.6rem;
-            margin-right: 0.9rem;
-            margin-left: 0.6rem;
-            padding: 0.3em;
-            text-align: center;
         }
 
         .task-actions {
@@ -164,6 +143,12 @@
 
         .task-actions-prepend {
             margin-top: 0.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .task-timer-button, .task-delete-button {
+            display: none;
         }
     }
 }

@@ -67,7 +67,7 @@ export default class Analyze extends React.Component {
                         color: "#ffa692"
                     },
                     {
-                        title: "Коэффициент",
+                        title: "Стоимость часа",
                         value: result.koeff,
                         unit: "",
                         icon: "fas fa-asterisk",
@@ -120,7 +120,10 @@ export default class Analyze extends React.Component {
         } else {
             content = (
                 <div className="alert alert-info loading">
-                    Анализируем продуктивность...
+                    <span className="loader" />
+                    <span className="loader-message">
+                        Анализируем продуктивность...
+                    </span>
                 </div>
             )
         }

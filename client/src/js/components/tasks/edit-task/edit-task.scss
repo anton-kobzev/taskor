@@ -1,0 +1,37 @@
+.task-edit-form-inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-edit-inner {
+    width: 70%;
+    margin-right: 20px;
+}
+
+.task-name-input {
+    width: 80%;
+    font-size: 16px;
+}
+
+.task-description-input {
+    width: 80%;
+}
+
+.task-small-input {
+    width: 3.6rem;
+    margin-right: 0.9rem;
+    margin-left: 0.6rem;
+    padding: 0.3em;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .task-edit-form-inner {
+        flex-direction: column;
+    }
+
+    .task-edit-inner {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

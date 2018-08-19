@@ -95,3 +95,9 @@ textarea {
         margin-top: 0.5rem;
     }
 }
+
+@media (max-width: 768px) {
+    .page-section {
+        margin-bottom: 2em;
+    }
+}

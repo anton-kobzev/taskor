@@ -119,7 +119,7 @@ export default class Task extends React.Component {
                                     </a>
                                 ) : this.props.inProgress ? (
                                     <button
-                                        className="btn btn-outline-primary btn-sm"
+                                        className="btn btn-outline-primary btn-sm task-timer-button"
                                         disabled
                                     >
                                         <i className="fas fa-award icon" /> В
@@ -127,7 +127,7 @@ export default class Task extends React.Component {
                                     </button>
                                 ) : (
                                     <button
-                                        className="btn btn-outline-primary btn-sm"
+                                        className="btn btn-outline-primary btn-sm task-timer-button"
                                         onClick={this.handleTimerStart}
                                     >
                                         <i className="far fa-clock icon" />
@@ -137,7 +137,7 @@ export default class Task extends React.Component {
 
                                 {this.state.deleteTaskConfirmOpened && (
                                     <button
-                                        className="btn btn-danger btn-sm btn-collapse"
+                                        className="btn btn-danger btn-sm btn-collapse task-delete-button"
                                         onClick={() => {
                                             this.props.onDelete(task)
                                         }}
@@ -150,7 +150,7 @@ export default class Task extends React.Component {
                                     <a
                                         href="javascript:;"
                                         title="Удалить"
-                                        className="action action-icon"
+                                        className="action action-icon task-delete-button"
                                         onClick={this.handleDeleteTask}
                                     >
                                         <i className="fas fa-trash" />

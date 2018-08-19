@@ -36,7 +36,7 @@ export default class AddTask extends React.Component {
             <div className="add-task-container d-flex justify-content-end">
                 <form
                     onSubmit={this.handleSubmit}
-                    className="form-inline justify-content-start add-task-form mt-2"
+                    className="add-task-form mt-2"
                 >
                     <input
                         type="text"
