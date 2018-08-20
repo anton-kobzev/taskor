@@ -1622,9 +1622,9 @@ var TasksList = function (_React$Component) {
         };
 
         _this.handleArchiveTask = function (task) {
+            _this.removeTaskFromList(task);
             task.archive = 1;
             _this.updateTask(task);
-            _this.removeTaskFromList(task);
         };
 
         _this.handleFilter = function (filter) {

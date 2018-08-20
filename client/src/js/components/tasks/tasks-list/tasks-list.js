@@ -146,9 +146,9 @@ export default class TasksList extends React.Component {
     }
 
     handleArchiveTask = task => {
+        this.removeTaskFromList(task)
         task.archive = 1
         this.updateTask(task)
-        this.removeTaskFromList(task)
     }
 
     handleFilter = filter => {
