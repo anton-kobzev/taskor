@@ -51,8 +51,8 @@ export default class EditTask extends React.Component {
     render() {
         return (
             <div className={"task-edit task-edit-" + this.props.task.id}>
-                <form onSubmit={this.handleSubmit} onClick={this.handleClick}>
-                    <div className="d-flex justify-content-between">
+                <form onSubmit={this.handleSubmit} onClick={this.handleClick} className="task-edit-form">
+                    <div className="task-edit-form-inner">
                         <div className="task-edit-inner">
                             <input
                                 type="text"

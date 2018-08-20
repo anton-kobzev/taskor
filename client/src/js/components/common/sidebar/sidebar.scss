@@ -10,4 +10,8 @@
             border-radius: 0.8em;
         }
     }
+
+    @media (max-width: 768px) {
+        margin-top: 0;
+    }
 }

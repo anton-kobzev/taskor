@@ -33,7 +33,7 @@ export default class TasksFilter extends React.Component {
                     <input
                         type="text"
                         className="form-control search-input"
-                        placeholder="Поиск и фильтр..."
+                        placeholder="Поиск задач..."
                         onChange={e => this.handleInput("name", e.target.value)}
                     />
                 </div>

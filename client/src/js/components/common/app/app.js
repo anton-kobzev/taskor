@@ -47,10 +47,10 @@ class App extends React.Component {
                 <Router>
                     <div className="container">
                         <div className="row no-gutters">
-                            <div className="col-2">
+                            <div className="col-xl-2 col-md-3">
                                 <Sidebar />
                             </div>
-                            <div className="col-10">
+                            <div className="col-xl-10 col-md-9">
                                 <AnimatedSwitch
                                     atEnter={animatedSwitchTransition.atEnter}
                                     atLeave={animatedSwitchTransition.atLeave}
