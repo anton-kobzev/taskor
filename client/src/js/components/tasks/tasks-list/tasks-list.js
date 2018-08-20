@@ -41,7 +41,7 @@ export default class TasksList extends React.Component {
             .then(response => {
                 if (response.ok) return response.json()
                 throw new Error(
-                    "Не получается загрузить задачи, статус: " + response.status
+                    "Не удалось загрузить задачи, статус: " + response.status
                 )
             })
             .then(data => {
@@ -50,9 +50,9 @@ export default class TasksList extends React.Component {
                     loaded: true
                 })
             })
-            .catch(error => {
+            .catch(() => {
                 this.setState({
-                    error: error,
+                    error: "Не удалось загрузить задачи",
                     loaded: true
                 })
             })
@@ -224,7 +224,8 @@ export default class TasksList extends React.Component {
             if (this.state.error) {
                 content = (
                     <div className="alert alert-danger">
-                        {this.state.error.message}
+                        <i className="far fa-meh icon" />
+                        {this.state.error}
                     </div>
                 )
             } else {
