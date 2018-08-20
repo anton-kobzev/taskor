@@ -566,7 +566,7 @@ var Header = function (_React$Component) {
                                 { href: "#", className: "nav-link" },
                                 _react2.default.createElement("i", { className: "fas fa-user-circle fa-lg mr-1" }),
                                 " ",
-                                "\u0410\u043D\u0442\u043E\u043D \u041A\u043E\u0431\u0437\u0435\u0432"
+                                "\u0414\u0435\u043C\u043E \u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C"
                             )
                         )
                     )
