@@ -15,7 +15,7 @@ export default class Header extends React.Component {
                         <li className="nav-item">
                             <a href="#" className="nav-link">
                                 <i className="fas fa-user-circle fa-lg mr-1" />{" "}
-                                Антон Кобзев
+                                Демо Пользователь
                             </a>
                         </li>
                     </ul>
