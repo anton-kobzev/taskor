@@ -43,8 +43,7 @@ export default class Analyze extends React.Component {
                     </div>
                 )
             } else {
-                const result = this.state.result
-                let analyzeCardItems = [
+                const result = this.state.result, analyzeCardItems = [
                     {
                         title: "Заработано",
                         value: result.donePrice,
