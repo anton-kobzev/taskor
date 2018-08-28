@@ -7,7 +7,8 @@ export default class Analyze extends React.Component {
         super()
         this.state = {
             result: [],
-            loaded: false
+            loaded: false,
+            error: false
         }
     }
 
@@ -15,7 +16,7 @@ export default class Analyze extends React.Component {
         fetch("/api/tasks/analyze")
             .then(response => {
                 if (response.ok) return response.json()
-                throw new Error("Can not load, status: " + response.status)
+                throw new Error
             })
             .then(data => {
                 this.setState({
@@ -25,7 +26,7 @@ export default class Analyze extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: error,
+                    error: 'Ошибка при загрузке',
                     loaded: true
                 })
             })
@@ -38,7 +39,7 @@ export default class Analyze extends React.Component {
             if (this.state.error) {
                 content = (
                     <div className="alert alert-danger">
-                        {this.state.error.message}
+                        {this.state.error}
                     </div>
                 )
             } else {
