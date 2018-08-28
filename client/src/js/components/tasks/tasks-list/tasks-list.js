@@ -40,9 +40,7 @@ export default class TasksList extends React.Component {
         fetch("/api/tasks/?filter=" + filterQuery)
             .then(response => {
                 if (response.ok) return response.json()
-                throw new Error(
-                    "Не получается загрузить задачи, статус: " + response.status
-                )
+                throw new Error
             })
             .then(data => {
                 this.setState({
@@ -52,7 +50,7 @@ export default class TasksList extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: error,
+                    error: 'Не получилось загрузить задачи',
                     loaded: true
                 })
             })
@@ -224,7 +222,7 @@ export default class TasksList extends React.Component {
             if (this.state.error) {
                 content = (
                     <div className="alert alert-danger">
-                        {this.state.error.message}
+                        {this.state.error}
                     </div>
                 )
             } else {
