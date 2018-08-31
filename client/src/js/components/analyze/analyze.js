@@ -7,7 +7,8 @@ export default class Analyze extends React.Component {
         super()
         this.state = {
             result: [],
-            loaded: false
+            loaded: false,
+            error: false
         }
     }
 
@@ -15,7 +16,7 @@ export default class Analyze extends React.Component {
         fetch("/api/tasks/analyze")
             .then(response => {
                 if (response.ok) return response.json()
-                throw new Error("Не удалось загрузить, статус: " + response.status)
+                throw new Error
             })
             .then(data => {
                 this.setState({
@@ -43,8 +44,7 @@ export default class Analyze extends React.Component {
                     </div>
                 )
             } else {
-                const result = this.state.result
-                let analyzeCardItems = [
+                const result = this.state.result, analyzeCardItems = [
                     {
                         title: "Заработано",
                         value: result.donePrice,

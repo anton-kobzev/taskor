@@ -40,9 +40,7 @@ export default class TasksList extends React.Component {
         fetch("/api/tasks/?filter=" + filterQuery)
             .then(response => {
                 if (response.ok) return response.json()
-                throw new Error(
-                    "Не удалось загрузить задачи, статус: " + response.status
-                )
+                throw new Error
             })
             .then(data => {
                 this.setState({

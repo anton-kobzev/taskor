@@ -126,7 +126,8 @@ var Analyze = function (_React$Component) {
 
         _this.state = {
             result: [],
-            loaded: false
+            loaded: false,
+            error: false
         };
         return _this;
     }
@@ -138,13 +139,13 @@ var Analyze = function (_React$Component) {
 
             fetch("/api/tasks/analyze").then(function (response) {
                 if (response.ok) return response.json();
-                throw new Error("Не удалось загрузить, статус: " + response.status);
+                throw new Error();
             }).then(function (data) {
                 _this2.setState({
                     result: data.result,
                     loaded: true
                 });
-            }).catch(function (error) {
+            }).catch(function () {
                 _this2.setState({
                     error: "Не удалось загрузить статистику",
                     loaded: true
@@ -165,8 +166,8 @@ var Analyze = function (_React$Component) {
                         this.state.error
                     );
                 } else {
-                    var result = this.state.result;
-                    var analyzeCardItems = [{
+                    var result = this.state.result,
+                        analyzeCardItems = [{
                         title: "Заработано",
                         value: result.donePrice,
                         unit: "у. е.",
@@ -1716,13 +1717,13 @@ var TasksList = function (_React$Component) {
 
             fetch("/api/tasks/?filter=" + filterQuery).then(function (response) {
                 if (response.ok) return response.json();
-                throw new Error("Не удалось загрузить задачи, статус: " + response.status);
+                throw new Error();
             }).then(function (data) {
                 _this2.setState({
                     tasks: data,
                     loaded: true
                 });
-            }).catch(function (error) {
+            }).catch(function () {
                 _this2.setState({
                     error: "Не удалось загрузить задачи",
                     loaded: true
