@@ -139,7 +139,11 @@ var Analyze = function (_React$Component) {
 
             fetch("/api/tasks/analyze").then(function (response) {
                 if (response.ok) return response.json();
+<<<<<<< HEAD
                 throw new Error();
+=======
+                throw new Error("Не удалось загрузить, статус: " + response.status);
+>>>>>>> e254b77cb48e6f658f103f6d776f7794a7161f14
             }).then(function (data) {
                 _this2.setState({
                     result: data.result,
@@ -1717,7 +1721,11 @@ var TasksList = function (_React$Component) {
 
             fetch("/api/tasks/?filter=" + filterQuery).then(function (response) {
                 if (response.ok) return response.json();
+<<<<<<< HEAD
                 throw new Error();
+=======
+                throw new Error("Не удалось загрузить задачи, статус: " + response.status);
+>>>>>>> e254b77cb48e6f658f103f6d776f7794a7161f14
             }).then(function (data) {
                 _this2.setState({
                     tasks: data,
